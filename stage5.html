@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1b2a4a">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9RTQCP2HXM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9RTQCP2HXM');
+</script>
+<title>STAGE5 量子力学の予言 ― ベルの不等式を破る</title>
+<meta name="description" content="量子力学はもつれ光子の食い違い率をいくつと予言するのか。マルスの法則（偏光板を通る確率cos²θ）を矢印の分解から導き、もつれペアの食い違い率 D＝sin²(角度差) を計算する。sin30°=1/2、sin60°=√3/2 から D(30°)=1/4、D(60°)=3/4。">
+<link rel="canonical" href="https://ruglerugle.github.io/bell-inequality/stage5.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ベルの不等式を破る">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="STAGE5 量子力学の予言 ― ベルの不等式を破る">
+<meta property="og:description" content="マルスの法則 cos²θ から、もつれ光子ペアの食い違い率 D＝sin²(角度差) を導く。対決の弾丸を込める回。">
+<meta property="og:url" content="https://ruglerugle.github.io/bell-inequality/stage5.html">
+<meta property="og:image" content="https://ruglerugle.github.io/bell-inequality/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  .bq-svg .label{fill:var(--muted);font-size:11px;font-weight:700}
+  .bq-svg .strong{fill:var(--ink);font-size:12px;font-weight:900}
+  .bq-svg .lbA{fill:var(--gold-dark);font-size:11px;font-weight:900}
+  .bq-svg .lbR{fill:#b5504a;font-size:11px;font-weight:900}
+  .bq-svg .axis{stroke:var(--muted);stroke-width:1.2}
+  .bq-svg .vecmain{stroke:#48688f;stroke-width:2.6}
+  .bq-svg .vecmain-h{fill:#48688f}
+  .bq-svg .veccos{stroke:var(--ok);stroke-width:2.4}
+  .bq-svg .veccos-h{fill:var(--ok)}
+  .bq-svg .vecsin{stroke:var(--ng);stroke-width:2.4}
+  .bq-svg .vecsin-h{fill:var(--ng)}
+  .bq-svg .tie{stroke:var(--line);stroke-width:1;stroke-dasharray:4 3}
+  .bq-svg .curve{fill:none;stroke:#48688f;stroke-width:2.2}
+  .bq-svg .pt{fill:#b5504a}
+  .bq-svg .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:4 3}
+</style>
+</head>
+<body>
+<div class="app-shell side-collapsed" id="app-shell">
+  <header class="game-header">
+    <div class="brand">
+      <div class="brand-title"><a class="head-reset home-badge" href="index.html" title="トップへ" aria-label="トップへ">🔔</a> <span>ベルの不等式を破る</span></div>
+      <div class="brand-sub">STAGE 5 ― 量子力学の予言 ―</div>
+    </div>
+    <div class="head-progress-wrap">
+      <div class="head-progress-label" id="progress-label">クリア 0 / 8</div>
+      <div class="head-progress" role="progressbar" aria-label="クリア済みステージ数" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><div class="head-progress-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+    <div class="header-actions">
+      <button class="head-reset" id="btn-reset-all">🔄 最初から</button>
+      <button class="head-reset" id="head-nav-toggle" title="ステージ一覧の表示切替">☰ ナビ</button>
+    </div>
+  </header>
+
+  <div class="game-layout">
+    <div class="side-backdrop" id="side-backdrop"></div>
+    <aside class="side-panel">
+      <div class="side-head">
+        <button class="side-toggle" id="sidebar-toggle" title="ステージ一覧の表示切替" aria-label="ステージ一覧の表示切替">☰</button>
+        <span class="side-head-text">📚 ステージ一覧</span>
+      </div>
+      <div class="side-list" id="side-list"></div>
+    </aside>
+
+    <main class="main-area">
+      <div class="chapter-head">
+        <span class="chapter-badge">STAGE 5</span><span class="chapter-title">量子力学の予言</span>
+        <div class="chapter-sub">食い違いは sin²(角度差)</div>
+      </div>
+
+      <div class="mission-box">
+        <div class="mission-label">🎯 ミッション</div>
+        <div class="mission-text">量子力学が予言する食い違い率を計算しよう。マルスの法則「光子は確率cos²θで偏光板を通る」を矢印の分解から理解し、もつれペアの食い違い率 D＝sin²(角度差)、特に D(30°差)＝1/4、D(60°差)＝3/4 を導ければ合格。</div>
+        <span class="mission-status" id="mission-status">未達成</span>
+      </div>
+
+      <div class="dialogue-scene">
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">裁判の基準はできた。今度は原告側――量子力学に、具体的な数字を予言してもらう番だ。鍵になるのは、STAGE2で宿題にしておいた問い。<strong>斜めに振動する光が偏光板に入ると、どうなるか？</strong> 答えを出すために、まず角度の道具を2つ用意するよ。半径1の円を描いて、中心から角度θの方向に線を引き、円周との交点を見る。この点の<strong>高さ</strong>を<strong>sinθ（サイン）</strong>、<strong>横の位置</strong>を<strong>cosθ（コサイン）</strong>と呼ぶ。たとえば θ＝0° なら点は真横にあるから、高さ sin0°＝0、横 cos0°＝1。θ＝90° なら真上だから sin90°＝1、cos90°＝0。よく使う値も挙げておこう。<strong>sin30°＝1/2、cos30°＝√3/2（＝約0.87）、sin60°＝√3/2、cos60°＝1/2、sin45°＝cos45°＝1/√2（＝約0.71）</strong>だ。</div>
+        </div>
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbit.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">「角度θの方向を向いた長さ1の矢印の、縦の成分がsinθ、横の成分がcosθ」と覚えればよさそうですね。θが0°から90°へ増えると、cosθは1から0へ減っていき、sinθは0から1へ増えていく。2つはシーソーの関係……。それで、この道具で斜めの光をどう料理するんですか？</div>
+        </div>
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">光の振動を<strong>矢印</strong>として描くんだ。矢印の向きが偏光の向き、矢印の長さが振動の大きさ（<strong>振幅</strong>と呼ぶ）だよ。偏光板の軸から角度θだけ傾いた、長さ1の矢印を考えよう。この矢印は、<strong>軸に沿った成分</strong>と<strong>軸に直角な成分</strong>の2本に分解できる。いま定義した道具そのままに、軸に沿った成分の長さは<strong>cosθ</strong>、直角な成分は<strong>sinθ</strong>だ。偏光板は軸に沿った振動だけを通す柵だったから、通り抜けるのは cosθ の成分だけ。ここでもう1つ、波の大事な性質を教えよう。<strong>波の明るさ（エネルギー）は、振幅の2乗に比例する</strong>。振れ幅が2倍になると、動きの速さも働く力も2倍ずつになって、エネルギーは2×2＝4倍になる、という理屈だ。すると、通った後の明るさは元の――</div>
+        </div>
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbitThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">振幅がcosθ倍になったのだから、明るさは<strong>cos²θ倍</strong>ですね（cos²θは「コサインθの2乗」の書き方でしたね）。検算します。θ＝0°なら cos²0°＝1で全部通る。θ＝90°なら cos²90°＝0で全滅。STAGE2の柵の話と一致します。θ＝45°なら (1/√2)²＝1/2でちょうど半分。……あ、でも先生、ここで前と同じ問題が起きます。<strong>光子1個は割れない</strong>んでした。明るさが cos²θ倍になるということは、光子の数が cos²θ倍に減るしかない。つまり<strong>1個1個の光子は、確率 cos²θ で通り、確率 sin²θ で吸収される</strong>（cos²θ＋sin²θは、矢印の長さ1を分解して2乗の和にしたものだから必ず1）。そういうことですか？</div>
+        </div>
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">満点だよ。これが<strong>マルスの法則</strong>の光子版だ。マルスは19世紀初めに明るさの法則 cos²θ を見つけた物理学者で、量子力学はそれを「1個あたりの確率」と読み替えた。<strong>軸から角度θ傾いた偏光の光子は、確率 cos²θ で通る（○）、確率 sin²θ で吸収される（×）</strong>。これが量子力学の基本ルールだ。そしてどちらになるかは、量子力学によれば本物の偶然で、誰にも――光子自身にも――事前には分からない。</div>
+        </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" viewBox="0 0 340 185" width="100%" role="img" aria-label="偏光板の軸から角度θ傾いた長さ1の矢印を、軸に沿ったcosθ成分と直角なsinθ成分に分解する図。通り抜けるのはcosθ成分で、明るさはcos²θ倍になる">
+          <text class="strong" x="14" y="18">矢印の分解 ― マルスの法則 cos²θ の正体</text>
+          <line class="axis" x1="40" y1="160" x2="240" y2="160"></line>
+          <line class="axis" x1="60" y1="175" x2="60" y2="40"></line>
+          <text class="label" x="238" y="150" text-anchor="end">偏光板の軸の向き</text>
+          <line class="vecmain" x1="60" y1="160" x2="204" y2="76"></line>
+          <polygon class="vecmain-h" points="210,72 196,76 203,86"></polygon>
+          <text class="lbA" x="140" y="102">光の振動（長さ1）</text>
+          <line class="veccos" x1="60" y1="160" x2="204" y2="160"></line>
+          <polygon class="veccos-h" points="212,160 202,156 202,164"></polygon>
+          <text class="label" x="130" y="174" fill="var(--ok)">軸に沿った成分＝cosθ → 通る</text>
+          <line class="vecsin" x1="60" y1="160" x2="60" y2="76"></line>
+          <polygon class="vecsin-h" points="60,68 56,78 64,78"></polygon>
+          <text class="label" x="14" y="60" fill="var(--ng)">直角な成分＝sinθ</text>
+          <text class="label" x="14" y="74" fill="var(--ng)">→ 吸収</text>
+          <line class="tie" x1="204" y1="76" x2="204" y2="160"></line>
+          <line class="tie" x1="204" y1="76" x2="60" y2="76"></line>
+          <path class="axis" d="M100 160 A40 40 0 0 0 94.6 139.7" fill="none"></path>
+          <text class="lbA" x="106" y="146">θ</text>
+          <text class="strong" x="252" y="100">明るさは振幅の2乗</text>
+          <text class="strong" x="252" y="118">→ cos²θ 倍</text>
+          <text class="label" x="252" y="140">光子1個なら</text>
+          <text class="label" x="252" y="154">確率 cos²θ で○</text>
+        </svg>
+        <div class="diagram-caption">軸から角度θ傾いた振動（長さ1の矢印）は、軸に沿った<strong>cosθ成分</strong>と直角な<strong>sinθ成分</strong>に分解できる。柵を通るのはcosθ成分だけで、明るさは振幅の2乗だから<strong>cos²θ倍</strong>。割れない光子1個にとって、これは<strong>通る確率cos²θ・吸収される確率sin²θ</strong>を意味する</div>
+      </div>
+
+      <div class="dialogue-scene">
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/catThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">では本題。<strong>もつれペア</strong>を量子力学で料理しよう。量子力学の教科書は、もつれペアをこう描く。<strong>測る前は、どちらの光子も決まった偏光を持っていない</strong>。説明書は白紙どころか、存在しない。そしてアリスが角度aの偏光板で測って、たとえば○（通過）だったとする。その瞬間、ペア全体の状態がガラリと変わり、<strong>ボブの光子は「角度aの偏光を持つ光子」になる</strong>。アリスが×なら、ボブの光子は「aと直角（a＋90°）の偏光を持つ光子」になる。この「瞬間に変わる」がアインシュタインの憎んだ不気味な遠隔作用だね。本当にそんな作用があるのかは、まさに裁判で審理中だから、いまは<strong>量子力学の計算ルール</strong>として受け入れて、予言だけを取り出そう。</div>
+        </div>
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbitThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">計算、やらせてください。アリスが角度a、ボブが角度bで測ります。角度差をΔ（デルタ）＝b−aと書きますね。<strong>場合1：アリスが○</strong>（確率は対称性から1/2）。ボブの光子は角度aの偏光になったので、角度bの偏光板を通る確率は、軸との角度差がΔだから<strong>cos²Δ</strong>。食い違うのはボブが×のときで、確率<strong>sin²Δ</strong>。<strong>場合2：アリスが×</strong>（確率1/2）。ボブの光子はa＋90°の偏光。角度bの板との角度差は90°−Δで……cos²(90°−Δ)。90°−Δの矢印の横成分はΔの矢印の縦成分と同じだから、cos(90°−Δ)＝sinΔ。よって通る確率はsin²Δ。今度は<strong>ボブが○のとき食い違う</strong>ので、やはり確率sin²Δ。……どちらの場合も同じですね。<strong>食い違い率 D＝sin²Δ</strong>。角度差だけで決まりました。</div>
+        </div>
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">見事な計算だ。検算もしておこう。角度差Δ＝0°、つまり2人が同じ角度なら、D＝sin²0°＝0。<strong>食い違いゼロ、完全相関</strong>――STAGE2の実験事実がちゃんと再現された。Δ＝90°ならD＝sin²90°＝1で、必ず食い違う。そして裁判に使う値を計算しよう。<strong>Δ＝30°のとき：D＝sin²30°＝(1/2)²＝1/4</strong>。<strong>Δ＝60°のとき：D＝sin²60°＝(√3/2)²＝3/4</strong>。√3を2乗すれば3に戻るから、3/4だね。この2つの数字が、次のステージで法廷に提出される証拠になる。</div>
+        </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" viewBox="0 0 340 190" width="100%" role="img" aria-label="横軸に角度差、縦軸に食い違い率をとったsin²カーブのグラフ。30°で4分の1、60°で4分の3、90°で1になる点が印されている">
+          <text class="strong" x="14" y="16">量子力学の予言：食い違い率 D＝sin²(角度差)</text>
+          <line class="axis" x1="40" y1="160" x2="326" y2="160"></line>
+          <line class="axis" x1="40" y1="170" x2="40" y2="30"></line>
+          <line class="grid" x1="40" y1="40" x2="326" y2="40"></line>
+          <text class="label" x="34" y="44" text-anchor="end">1</text>
+          <line class="grid" x1="40" y1="70" x2="326" y2="70"></line>
+          <text class="label" x="34" y="74" text-anchor="end">3/4</text>
+          <line class="grid" x1="40" y1="130" x2="326" y2="130"></line>
+          <text class="label" x="34" y="134" text-anchor="end">1/4</text>
+          <path class="curve" id="sin2-curve"></path>
+          <circle class="pt" cx="135" cy="130" r="4.5"></circle>
+          <text class="lbR" x="135" y="120" text-anchor="middle">30°→1/4</text>
+          <circle class="pt" cx="230" cy="70" r="4.5"></circle>
+          <text class="lbR" x="230" y="60" text-anchor="middle">60°→3/4</text>
+          <circle class="pt" cx="326" cy="40" r="4.5"></circle>
+          <text class="label" x="320" y="30" text-anchor="middle">90°→1</text>
+          <text class="label" x="40" y="176">0°</text>
+          <text class="label" x="320" y="176" text-anchor="end">角度差Δ→</text>
+          <text class="label" x="48" y="38">食い違い率D</text>
+        </svg>
+        <div class="diagram-caption">量子力学の予言カーブ。角度差0°で食い違いゼロ（完全相関）、90°で必ず食い違う。注目は<strong>カーブの形</strong>だ。0°付近ではなかなか立ち上がらず、あとから一気に急になる。30°で1/4だった食い違いが、60°では2倍の1/2ではなく<strong>3倍の3/4</strong>まで跳ね上がる――この「加速」が次のステージで事件を起こす</div>
+      </div>
+
+      <div class="dialogue-scene">
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbit.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">グラフを見て、胸騒ぎがしています。ベルの不等式は「30°の食い違いを2つ足せば、60°の食い違い以上になるはず」という形でした。でも量子力学の予言は、30°で1/4、60°で3/4。<strong>1/4＋1/4＝1/2は、3/4より小さい</strong>……。先生、これ、ぶつかっていませんか？</div>
+        </div>
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/catThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">気づいてしまったね。その衝突を正面から確かめるのが、次のステージだ。300年の物理学の常識と、量子力学の予言が、たった3つの分数の上で正面衝突する。歴史が動く瞬間を、自分の手で計算してもらうよ。</div>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        <span class="step">【このステージの成果】</span>
+        <span class="step">マルスの法則（光子版）：軸から角度θ傾いた偏光の光子は、確率 <span class="nw">cos²θ</span> で通り、確率 <span class="nw">sin²θ</span> で吸収される</span>
+        <span class="step">もつれペアの食い違い率（量子力学の予言）：<span class="nw">D＝sin²(角度差Δ)</span></span>
+        <span class="step multi"><span class="item">Δ＝0°：D＝0（完全相関）</span>　<span class="item">Δ＝30°：D＝1/4</span>　<span class="item">Δ＝60°：D＝3/4</span>　<span class="item">Δ＝90°：D＝1</span></span>
+      </div>
+
+      <div class="quiz-head">確認クイズ</div>
+      <div class="quiz-card" data-quiz>
+        <p class="quiz-q">Q1. 偏光板の軸から角度θ傾いた偏光を持つ光子1個は、どうなる？</p>
+        <div class="choice-list">
+          <button class="choice-btn">明るさが cos²θ倍になって通り抜ける</button>
+          <button class="choice-btn">θが90°未満なら必ず通る</button>
+          <button class="choice-btn">確率 cos²θ で丸ごと通り、確率 sin²θ で丸ごと吸収される</button>
+        </div>
+        <div class="quiz-explain" hidden>正解！ 波としての明るさの法則（cos²θ倍）を、割れない光子1個に読み替えると「通る確率cos²θ」になる。矢印を軸方向（cosθ）と直角方向（sinθ）に分解し、明るさ＝振幅の2乗、と組み合わせた結果だ。</div>
+      </div>
+
+      <div class="quiz-card" data-quiz>
+        <p class="quiz-q">Q2. 量子力学の予言 D＝sin²Δ の検算として正しいのはどれ？</p>
+        <div class="choice-list">
+          <button class="choice-btn">角度差0°なら必ず一致し（D=0）、角度差90°なら必ず食い違う（D=1）</button>
+          <button class="choice-btn">角度差0°でも半分は食い違う</button>
+          <button class="choice-btn">角度差90°なら必ず一致する</button>
+        </div>
+        <div class="quiz-explain" hidden>正解！ sin²0°＝0なので同じ角度では食い違いゼロ――STAGE2の完全相関が再現される。sin²90°＝1なので直角では必ず食い違う。両端が実験事実と合っていることを確かめてから、中間の角度を信用するのが物理の作法だ。</div>
+      </div>
+
+      <div class="quiz-card" data-quiz>
+        <p class="quiz-q">Q3. 角度差60°のときの食い違い率 D＝sin²60° の値は？</p>
+        <div class="choice-list">
+          <button class="choice-btn">1/2</button>
+          <button class="choice-btn">3/4</button>
+          <button class="choice-btn">1/4</button>
+        </div>
+        <div class="quiz-explain" hidden>正解！ sin60°＝√3/2 だから、2乗して (√3/2)²＝3/4。30°のときの1/4に対して、角度が2倍になると食い違いは3倍になる。この「2倍を超える加速」こそが、ベルの不等式と衝突する火種だ。</div>
+      </div>
+
+      <div class="stage-nav">
+        <a class="btn" href="index.html">← トップへ</a>
+        <button class="btn btn-primary" id="btn-next" disabled>次へ →</button>
+      </div>
+
+      <div id="book-recommend"></div>
+    </main>
+  </div>
+</div>
+
+<script src="js/progress.js"></script>
+<script>BQ.initStagePage(5);</script>
+
+<script>
+(function(){
+  // sin²カーブを描画（0°〜90°を x=40〜326、D=0〜1 を y=160〜40 に対応）
+  var curve = document.getElementById('sin2-curve');
+  if (!curve) return;
+  var X0 = 40, X1 = 326, Y0 = 160, Y1 = 40;
+  var d = '', first = true;
+  for (var deg = 0; deg <= 90; deg += 2) {
+    var s = Math.sin(deg * Math.PI / 180);
+    var x = X0 + (X1 - X0) * deg / 90;
+    var y = Y0 + (Y1 - Y0) * s * s;
+    d += (first ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
+    first = false;
+  }
+  curve.setAttribute('d', d);
+})();
+</script>
+</body>
+</html>

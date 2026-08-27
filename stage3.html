@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1b2a4a">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9RTQCP2HXM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9RTQCP2HXM');
+</script>
+<title>STAGE3 「説明書」仮説 ― ベルの不等式を破る</title>
+<meta name="description" content="アインシュタイン側の主張「隠れた変数」を、実験と突き合わせられる形に翻訳する。もつれた光子ペアが共通の説明書を持つというモデルを組み立て、完全相関から2枚の説明書が同一であることを導き、光子を8タイプに分類する。">
+<link rel="canonical" href="https://ruglerugle.github.io/bell-inequality/stage3.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ベルの不等式を破る">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="STAGE3 「説明書」仮説 ― ベルの不等式を破る">
+<meta property="og:description" content="隠れた変数を「光子が持つ説明書」というモデルに翻訳し、光子ペアを8タイプに分類する。ベルの不等式の導出準備。">
+<meta property="og:url" content="https://ruglerugle.github.io/bell-inequality/stage3.html">
+<meta property="og:image" content="https://ruglerugle.github.io/bell-inequality/images/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  .bq-svg .label{fill:var(--muted);font-size:11px;font-weight:700}
+  .bq-svg .strong{fill:var(--ink);font-size:12px;font-weight:900}
+  .bq-svg .lbA{fill:var(--gold-dark);font-size:11px;font-weight:900}
+  .bq-svg .sheet{fill:var(--paper2);stroke:#48688f;stroke-width:1.5}
+  .bq-svg .src{fill:#e8c07f;stroke:#a6742a;stroke-width:1.5}
+  .bq-svg .row-line{stroke:var(--line);stroke-width:1}
+  .bq-svg .ok{fill:var(--ok);font-weight:900;font-size:13px}
+  .bq-svg .ng{fill:var(--ng);font-weight:900;font-size:13px}
+  .bq-svg .cell{fill:var(--ink);font-size:12px;font-weight:800}
+  .bq-svg .grid{stroke:var(--line);stroke-width:1}
+  .bq-svg .head-cell{fill:var(--gold-dark);font-size:11.5px;font-weight:900}
+  .bq-svg .arrow{stroke:var(--muted);stroke-width:1.5}
+  .bq-svg .arrowhead{fill:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app-shell side-collapsed" id="app-shell">
+  <header class="game-header">
+    <div class="brand">
+      <div class="brand-title"><a class="head-reset home-badge" href="index.html" title="トップへ" aria-label="トップへ">🔔</a> <span>ベルの不等式を破る</span></div>
+      <div class="brand-sub">STAGE 3 ― 「説明書」仮説 ―</div>
+    </div>
+    <div class="head-progress-wrap">
+      <div class="head-progress-label" id="progress-label">クリア 0 / 8</div>
+      <div class="head-progress" role="progressbar" aria-label="クリア済みステージ数" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><div class="head-progress-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+    <div class="header-actions">
+      <button class="head-reset" id="btn-reset-all">🔄 最初から</button>
+      <button class="head-reset" id="head-nav-toggle" title="ステージ一覧の表示切替">☰ ナビ</button>
+    </div>
+  </header>
+
+  <div class="game-layout">
+    <div class="side-backdrop" id="side-backdrop"></div>
+    <aside class="side-panel">
+      <div class="side-head">
+        <button class="side-toggle" id="sidebar-toggle" title="ステージ一覧の表示切替" aria-label="ステージ一覧の表示切替">☰</button>
+        <span class="side-head-text">📚 ステージ一覧</span>
+      </div>
+      <div class="side-list" id="side-list"></div>
+    </aside>
+
+    <main class="main-area">
+      <div class="chapter-head">
+        <span class="chapter-badge">STAGE 3</span><span class="chapter-title">「説明書」仮説</span>
+        <div class="chapter-sub">隠れた変数と局所実在論</div>
+      </div>
+
+      <div class="mission-box">
+        <div class="mission-label">🎯 ミッション</div>
+        <div class="mission-text">手袋派（局所実在論）の主張を、正確なモデルに翻訳しよう。「光子ペアは共通の説明書を持つ」というモデルを組み立て、完全相関から2枚の説明書が同一になる理由を説明でき、光子ペアを8タイプに分類できれば合格。</div>
+        <span class="mission-status" id="mission-status">未達成</span>
+      </div>
+
+      <div class="dialogue-scene">
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">今日は数式ぬきの、しかしこの旅で最も大切な設計作業をする。前のステージで出てきた手袋派の説明――「答えは生まれた瞬間に仕込まれていた」――を、あいまいさゼロのモデルに翻訳するんだ。裁判にたとえるなら、被告「局所実在論」の主張を正確な調書にとる作業だね。主張を歪めて書いたら、あとでどんな判決を下しても意味がない。まず準備として、アリスとボブが使う偏光板の角度を<strong>3種類</strong>に決めておこう。<strong>A＝0°、B＝30°、C＝60°</strong>だ。2人はペアが届くたびに、この3つの中から好きな角度を選んで質問する。なぜ2種類ではなく3種類なのか――それはSTAGE4での驚きのために、いまは秘密にしておくよ。</div>
+        </div>
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbit.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">わかりました。では手袋派の主張を、私なりに調書に書き直してみます。「光子は、生まれた瞬間から答えを持っている」――これを厳密に言うと、こうなるはずです。<strong>それぞれの光子は、『角度Aで聞かれたら○、Bで聞かれたら×、Cで聞かれたら○』のような回答リストを、生まれたときから携帯している</strong>。測定の瞬間に決まるのではなく、リストを読み上げているだけ。……家電の説明書みたいですね。「この操作をされたらこう応答する」と全部書いてある。</div>
+        </div>
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">その「説明書」という言葉、いただこう。まさにそれが物理学者のいう<strong>隠れた変数</strong>の正体だよ。整理するとモデルはこうだ。<strong>仮定1（実在性）：各光子は、A・B・C各角度への答え（○か×）をすべて書き込んだ説明書を、生まれた瞬間から持っている。</strong>説明書の中身は測定より前に確定していて、測定はそれを読み上げるだけ。ここで大事な注意をひとつ。説明書に「Bなら×」と書いてあっても、実際にBで測らなければその答えは<strong>読まれずに終わる</strong>。でも手袋派によれば、読まれなかった答えも<strong>ちゃんと存在していた</strong>。これが実在性の意味だったね。</div>
+        </div>
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbitThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">では、ペアの2枚の説明書の関係を考えます。実験事実は「同じ角度なら必ず一致」でした。ここから逆算すると……<strong>2枚の説明書は、一字一句同じでなければならない</strong>はずです。理由はこうです。もし左の説明書に「Bなら○」、右の説明書に「Bなら×」と、どこか1か所でも食い違いがあったとします。アリスとボブがそろって角度Bを選んだら、左は○、右は×で、結果が食い違ってしまう。これは「同じ角度なら必ず一致」という実験事実に反します。だから、<strong>食い違いのある説明書のペアは、1組たりとも存在してはいけない</strong>。</div>
+        </div>
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">完璧な論証だ。手袋派は完全相関を「共通の仕込み」で説明したいのだから、<strong>仕込みは2枚とも同一</strong>でなければならない。まさに双子の遺伝子だね。そしてもう1本の柱も調書に入れよう。<strong>仮定2（局所性）：アリスがどの角度を選んで測っても、遠くにあるボブの光子の説明書は書き換わらない</strong>。逆もまた同じ。説明書は光源で書き込まれたら、あとは読まれるのを待つだけ。遠くの出来事に反応してこっそり内容が変わる――そんな光速超えの通信は禁止だ。この仮定1と仮定2を合わせたものが、局所実在論の完全な調書になる。</div>
+        </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" viewBox="0 0 340 175" width="100%" role="img" aria-label="中央の光源から左右に飛び出す2つの光子が、A・B・Cの3つの角度への答えが書かれた同一の説明書をそれぞれ持っている図">
+          <text class="strong" x="170" y="16" text-anchor="middle">「説明書」モデル ― 2枚は必ず同一</text>
+          <circle class="src" cx="170" cy="90" r="12"></circle>
+          <text class="label" x="170" y="118" text-anchor="middle">光源で2枚の</text>
+          <text class="label" x="170" y="132" text-anchor="middle">説明書に同じ内容を書き込む</text>
+          <line class="arrow" x1="152" y1="90" x2="122" y2="90"></line>
+          <polygon class="arrowhead" points="116,90 125,86 125,94"></polygon>
+          <line class="arrow" x1="188" y1="90" x2="218" y2="90"></line>
+          <polygon class="arrowhead" points="224,90 215,86 215,94"></polygon>
+          <rect class="sheet" x="24" y="38" width="88" height="104" rx="8"></rect>
+          <text class="lbA" x="68" y="58" text-anchor="middle">左の光子の説明書</text>
+          <line class="row-line" x1="34" y1="66" x2="102" y2="66"></line>
+          <text class="cell" x="38" y="84">A（0°）：</text><text class="ok" x="88" y="84">○</text>
+          <text class="cell" x="38" y="106">B（30°）：</text><text class="ng" x="88" y="106">×</text>
+          <text class="cell" x="38" y="128">C（60°）：</text><text class="ok" x="88" y="128">○</text>
+          <rect class="sheet" x="228" y="38" width="88" height="104" rx="8"></rect>
+          <text class="lbA" x="272" y="58" text-anchor="middle">右の光子の説明書</text>
+          <line class="row-line" x1="238" y1="66" x2="306" y2="66"></line>
+          <text class="cell" x="242" y="84">A（0°）：</text><text class="ok" x="292" y="84">○</text>
+          <text class="cell" x="242" y="106">B（30°）：</text><text class="ng" x="292" y="106">×</text>
+          <text class="cell" x="242" y="128">C（60°）：</text><text class="ok" x="292" y="128">○</text>
+          <text class="label" x="170" y="165" text-anchor="middle">どこか1か所でも違えば、その角度でそろえて測ったとき完全相関が破れてしまう</text>
+        </svg>
+        <div class="diagram-caption">説明書モデル。各光子はA・B・C全部への答えを生まれつき持ち（<strong>実在性</strong>）、ペアの2枚は同一で、遠くの測定で書き換わることもない（<strong>局所性</strong>）。図の例は「A:○ B:× C:○」タイプのペア</div>
+      </div>
+
+      <div class="dialogue-scene">
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/catThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">調書の仕上げに、ありえる説明書を全部リストアップしておこう。1冊の説明書は、A・B・Cという3つの質問への答え（それぞれ○か×）で決まる。すると説明書は何通りあるかな。数えてごらん。</div>
+        </div>
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbit.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">Aの答えが2通り、そのそれぞれにBが2通り、さらにCが2通りだから、2×2×2＝<strong>8通り</strong>です。書き出すと、(A,B,C)＝(○○○)、(○○×)、(○×○)、(○××)、(×○○)、(×○×)、(××○)、(×××)。どんな光子ペアも、この<strong>8タイプのどれか1つ</strong>に必ず入りますね。……ただ、気になるのは<strong>各タイプの割合</strong>です。光源がどのタイプをどれくらいの頻度で作るかは、隠れた変数の理論の詳細によって変わるはずです。私たちはその中身を知りません。割合が分からないのに、この先どうやって議論を進めるんですか？</div>
+        </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" viewBox="0 0 340 150" width="100%" role="img" aria-label="説明書の8タイプを並べた表。タイプ1から8まで、A・B・C各角度への答えの組み合わせがすべて列挙されている">
+          <text class="strong" x="170" y="16" text-anchor="middle">説明書は全部で 2×2×2＝8 タイプ</text>
+          <g>
+            <rect class="grid" x="14" y="28" width="312" height="104" rx="8" fill="var(--paper2)"></rect>
+            <line class="grid" x1="14" y1="54" x2="326" y2="54"></line>
+            <line class="grid" x1="14" y1="80" x2="326" y2="80"></line>
+            <line class="grid" x1="14" y1="106" x2="326" y2="106"></line>
+            <line class="grid" x1="53" y1="28" x2="53" y2="132"></line>
+            <text class="head-cell" x="33" y="45" text-anchor="middle">角度</text>
+            <text class="head-cell" x="33" y="71" text-anchor="middle">A(0°)</text>
+            <text class="head-cell" x="33" y="97" text-anchor="middle">B(30°)</text>
+            <text class="head-cell" x="33" y="123" text-anchor="middle">C(60°)</text>
+          </g>
+          <g id="type-cols"></g>
+        </svg>
+        <div class="diagram-caption">ありえる説明書の全リスト。どんな隠れた変数の理論でも、作られるペアは必ずこの8タイプのどれかに分類できる。<strong>各タイプの割合は理論の詳細によって何でもありうる</strong>――そこがベルの狙いどころになる</div>
+      </div>
+
+      <div class="dialogue-scene">
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">割合が分からない――そここそが、ベルの発見の凄みが光る場所なんだ。ベルはこう考えた。<strong>割合がどう配分されていても、絶対に成り立ってしまう関係だけを使おう</strong>、と。たとえばね、クラスの生徒の血液型の割合を知らなくても、「A型の人数は、A型で犬を飼っている人数より少なくない」ことは断言できる。全体は部分より少なくないからだ。中身を知らなくても言えることは、ちゃんとあるんだよ。次のステージでは、この「個数の当たり前」だけを武器に、8タイプの割合が何であっても必ず成り立つ不等式――<strong>ベルの不等式</strong>を、きみ自身の手で導いてもらう。</div>
+        </div>
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbitThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">なるほど、方針が見えてきました。相手の理論の中身（割合）を当てにいくのではなく、<strong>どんな中身でも逃れられない土俵</strong>を先に作ってしまうんですね。STAGE1で「正体不明の理論を一網打尽にできるのか」と疑いましたが、この作戦なら確かに可能かもしれません。8タイプという有限のリストに閉じ込めた時点で、勝負は半分始まっている……。早く続きをやりましょう。</div>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        <span class="step">【このステージの成果 ― 局所実在論の調書】</span>
+        <span class="step">仮定1（実在性）：各光子は、角度A（0°）・B（30°）・C（60°）への答え（○/×）をすべて書いた「説明書」を生まれつき持つ</span>
+        <span class="step">仮定2（局所性）：遠くの測定で説明書は書き換わらない</span>
+        <span class="step">完全相関より、ペアの2枚の説明書は<strong>同一</strong>。説明書は全8タイプ。各タイプの割合は不明のままでよい</span>
+      </div>
+
+      <div class="quiz-head">確認クイズ</div>
+      <div class="quiz-card" data-quiz>
+        <p class="quiz-q">Q1. ペアの2枚の説明書が「同一」でなければならない理由はどれ？</p>
+        <div class="choice-list">
+          <button class="choice-btn">どこか1つの角度でも内容が違うと、その角度でそろえて測ったときに結果が食い違い、完全相関という実験事実に反するから</button>
+          <button class="choice-btn">光子は全て同じ性質を持つ粒子だから</button>
+          <button class="choice-btn">説明書は1枚しか印刷できないから</button>
+        </div>
+        <div class="quiz-explain" hidden>正解！ 「同じ角度なら必ず一致」を仕込みで説明するには、仕込みが完全に同じでなければならない。1か所でも違うペアが混ざっていれば、その角度を2人が選んだとき不一致が観測されてしまう。実験事実からの逆算で、モデルの形が絞られた。</div>
+      </div>
+
+      <div class="quiz-card" data-quiz>
+        <p class="quiz-q">Q2. 「局所性」は説明書モデルのどこに現れている？</p>
+        <div class="choice-list">
+          <button class="choice-btn">説明書が紙でできているところ</button>
+          <button class="choice-btn">説明書に3つの角度の答えしか書いていないところ</button>
+          <button class="choice-btn">アリスがどの角度で測っても、遠くのボブの光子の説明書は書き換わらない、という仮定</button>
+        </div>
+        <div class="quiz-explain" hidden>正解！ 説明書は光源で書き込まれたら最後、遠くの出来事に反応して変わることはない。もし変わるなら、光より速い影響を認めることになる。実在性（答えが最初からある）と局所性（遠隔で書き換わらない）の2本柱で、調書が完成した。</div>
+      </div>
+
+      <div class="quiz-card" data-quiz>
+        <p class="quiz-q">Q3. 8タイプそれぞれの「割合」について、正しい態度はどれ？</p>
+        <div class="choice-list">
+          <button class="choice-btn">実験の前に、全タイプが同じ割合（各12.5%）と仮定する</button>
+          <button class="choice-btn">割合は理論の詳細によって何でもありうるので、どんな割合でも成り立つ関係だけを使って議論する</button>
+          <button class="choice-btn">割合が分からない以上、議論はここで打ち切るしかない</button>
+        </div>
+        <div class="quiz-explain" hidden>正解！ 隠れた変数の理論の中身（＝割合の配分）は誰も知らない。だからベルは「どんな配分でも絶対に成り立つ個数の関係」だけを武器に選んだ。血液型の割合を知らなくても「A型全員 ≥ A型で犬を飼っている人」と言えるのと同じ理屈だ。</div>
+      </div>
+
+      <div class="stage-nav">
+        <a class="btn" href="index.html">← トップへ</a>
+        <button class="btn btn-primary" id="btn-next" disabled>次へ →</button>
+      </div>
+
+      <div id="book-recommend"></div>
+    </main>
+  </div>
+</div>
+
+<script src="js/progress.js"></script>
+<script>BQ.initStagePage(3);</script>
+
+<script>
+(function(){
+  // 8タイプ表の列をJSで生成（手書きの座標ミスを防ぐ）
+  var g = document.getElementById('type-cols');
+  if (!g) return;
+  var types = [
+    ['○','○','○'], ['○','○','×'], ['○','×','○'], ['○','×','×'],
+    ['×','○','○'], ['×','○','×'], ['×','×','○'], ['×','×','×']
+  ];
+  var ns = 'http://www.w3.org/2000/svg';
+  var x0 = 53, colW = (326 - x0) / 8;
+  types.forEach(function (t, i) {
+    var cx = x0 + colW * (i + 0.5);
+    if (i > 0) {
+      var vl = document.createElementNS(ns, 'line');
+      vl.setAttribute('class', 'grid');
+      vl.setAttribute('x1', (x0 + colW * i).toFixed(1)); vl.setAttribute('x2', (x0 + colW * i).toFixed(1));
+      vl.setAttribute('y1', '28'); vl.setAttribute('y2', '132');
+      g.appendChild(vl);
+    }
+    var head = document.createElementNS(ns, 'text');
+    head.setAttribute('class', 'head-cell'); head.setAttribute('x', cx.toFixed(1));
+    head.setAttribute('y', '45'); head.setAttribute('text-anchor', 'middle');
+    head.textContent = String(i + 1);
+    g.appendChild(head);
+    t.forEach(function (mark, r) {
+      var el = document.createElementNS(ns, 'text');
+      el.setAttribute('class', mark === '○' ? 'ok' : 'ng');
+      el.setAttribute('x', cx.toFixed(1));
+      el.setAttribute('y', String(71 + 26 * r));
+      el.setAttribute('text-anchor', 'middle');
+      el.textContent = mark;
+      g.appendChild(el);
+    });
+  });
+})();
+</script>
+</body>
+</html>
