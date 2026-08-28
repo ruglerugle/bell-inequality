@@ -35,6 +35,12 @@
   .bq-svg .head-cell{fill:var(--gold-dark);font-size:11.5px;font-weight:900}
   .bq-svg .check{fill:#b5504a;font-size:13px;font-weight:900}
   .bq-svg .hl{fill:rgba(181,80,74,.12)}
+  .bq-svg .vennA{fill:rgba(72,104,143,.10);stroke:#48688f;stroke-width:2}
+  .bq-svg .vennB{fill:rgba(47,138,143,.10);stroke:#2f8a8f;stroke-width:2}
+  .bq-svg .vlabelA{fill:#48688f;font-size:13px;font-weight:900}
+  .bq-svg .vlabelB{fill:#2f8a8f;font-size:13px;font-weight:900}
+  .bq-svg .vtype{fill:var(--ink);font-size:12px;font-weight:800}
+  .bq-svg .vtype-hl{fill:#b5504a;font-size:12px;font-weight:900}
 </style>
 </head>
 <body>
@@ -119,6 +125,30 @@
           </div>
           <div class="dialog-bubble">紙に8タイプを書き出して数えようとして、気づいてしまいました。これ、表を作らなくても言えることです。<strong>A欄とC欄が食い違っている説明書</strong>を1冊、手に取ったとしますね。その説明書のB欄を見ると、答えは○か×のどちらかです。ところがA欄とC欄は違う答えなのだから、<strong>B欄は、A欄とC欄の両方と同じではいられません</strong>。BがAと同じなら、BはCと違う。BがAと違うなら、その時点でAとBが食い違っています。つまり――<strong>「A≠C」の説明書は、1冊残らず「A≠B」グループか「B≠C」グループのどちらか（または両方）に入っている</strong>！</div>
         </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" viewBox="0 0 340 205" width="100%" role="img" aria-label="8タイプの説明書を2つの円のベン図に配置した図。左の円がA≠Bグループ、右の円がB≠Cグループ。AとCが食い違う4タイプは赤で強調され、すべて必ずどちらかの円の中に入っている。円の外にいるのは全部同じ答えの2タイプだけ">
+          <text class="strong" x="170" y="16" text-anchor="middle">ベン図で見る ― 「A≠C」（赤）は必ずどちらかの円の中</text>
+          <circle class="vennA" cx="135" cy="112" r="62"></circle>
+          <circle class="vennB" cx="205" cy="112" r="62"></circle>
+          <text class="vlabelA" x="96" y="42" text-anchor="middle">A≠B</text>
+          <text class="vlabelB" x="244" y="42" text-anchor="middle">B≠C</text>
+          <text class="vtype-hl" x="107" y="106" text-anchor="middle">④ ○××</text>
+          <text class="vtype-hl" x="107" y="128" text-anchor="middle">⑤ ×○○</text>
+          <text class="vtype" x="170" y="106" text-anchor="middle">③ ○×○</text>
+          <text class="vtype" x="170" y="128" text-anchor="middle">⑥ ×○×</text>
+          <text class="vtype-hl" x="233" y="106" text-anchor="middle">② ○○×</text>
+          <text class="vtype-hl" x="233" y="128" text-anchor="middle">⑦ ××○</text>
+          <text class="vtype" x="38" y="106" text-anchor="middle">① ○○○</text>
+          <text class="vtype" x="38" y="128" text-anchor="middle">⑧ ×××</text>
+          <text class="label" x="38" y="146" text-anchor="middle">どちらでもない</text>
+          <text class="label" x="170" y="196" text-anchor="middle">赤 ＝ A欄とC欄が食い違う4タイプ</text>
+        </svg>
+        <div class="diagram-caption">うさ美の論法をベン図にしたもの（丸数字は上の表のタイプ番号、○×はA・B・C欄の答え）。<strong>赤の4タイプ（A≠C）は、1つ残らず左右どちらかの円に収まっている</strong>――B欄はA欄かC欄のどちらかと必ず食い違うからだ。円の外に逃げられるのは、3つの欄が全部同じ①と⑧だけ。だから「A≠Cの冊数」は「A≠Bの冊数＋B≠Cの冊数」を超えられない</div>
+      </div>
+
+      <div class="dialogue-scene">
         <div class="dialog-row">
           <div class="dialog-character">
             <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
