@@ -42,7 +42,10 @@
   .bq-svg .vlabelB{fill:#2f8a8f;font-size:13px;font-weight:900}
   .bq-svg .vlabelC{fill:#7a6a2f;font-size:13px;font-weight:900}
   .bq-svg .vtype{fill:var(--ink);font-size:12px;font-weight:800}
-  .bq-svg .vtype-hl{fill:#b5504a;font-size:12px;font-weight:900}
+  .bq-svg .dotAC{fill:#b5504a}
+  .bq-svg .dotAB{fill:#5b3fa6}
+  .bq-svg .dotBC{fill:#2f8f65}
+  .bq-svg .legend-txt{fill:var(--ink);font-size:12px;font-weight:900}
 </style>
 </head>
 <body>
@@ -130,26 +133,34 @@
       </div>
 
       <div class="diagram-box">
-        <svg class="bq-svg" viewBox="0 0 340 240" width="100%" role="img" aria-label="A欄が○、B欄が○、C欄が○という3つの円のベン図。8タイプの説明書が8つの領域に1つずつ対応する。AとCが食い違う4タイプは赤で強調され、Aの円とCの円の片方だけに入る領域に位置している">
-          <text class="strong" x="170" y="16" text-anchor="middle">ベン図で見る ― A・B・C欄の○×が作る8つの領域</text>
+        <svg class="bq-svg" viewBox="0 0 340 240" width="100%" role="img" aria-label="A欄が○、B欄が○、C欄が○という3つの円のベン図。8タイプの説明書が8つの領域に1つずつ対応し、各タイプの下の色点が、そのタイプがN(A≠C)（赤）、N(A≠B)（紫）、N(B≠C)（緑）のどの数え上げに入るかを示す。赤い点のある4タイプにはすべて紫か緑の点も付いている">
+          <text class="strong" x="170" y="16" text-anchor="middle">ベン図で見る ― 8つの領域と3つの数え上げ</text>
           <circle class="vennA" cx="135" cy="98" r="58"></circle>
           <circle class="vennB" cx="205" cy="98" r="58"></circle>
           <circle class="vennC" cx="170" cy="152" r="58"></circle>
           <text class="vlabelA" x="78" y="36" text-anchor="middle">A欄が○</text>
           <text class="vlabelB" x="262" y="36" text-anchor="middle">B欄が○</text>
           <text class="vlabelC" x="252" y="204" text-anchor="middle">C欄が○</text>
-          <text class="vtype-hl" x="108" y="82" text-anchor="middle">④ ○××</text>
-          <text class="vtype" x="232" y="82" text-anchor="middle">⑥ ×○×</text>
-          <text class="vtype-hl" x="170" y="70" text-anchor="middle">② ○○×</text>
-          <text class="vtype" x="130" y="140" text-anchor="middle">③ ○×○</text>
-          <text class="vtype-hl" x="210" y="140" text-anchor="middle">⑤ ×○○</text>
+          <text class="vtype" x="108" y="80" text-anchor="middle">④ ○××</text>
+          <circle class="dotAC" cx="102" cy="89" r="4"></circle><circle class="dotAB" cx="114" cy="89" r="4"></circle>
+          <text class="vtype" x="232" y="80" text-anchor="middle">⑥ ×○×</text>
+          <circle class="dotAB" cx="226" cy="89" r="4"></circle><circle class="dotBC" cx="238" cy="89" r="4"></circle>
+          <text class="vtype" x="170" y="68" text-anchor="middle">② ○○×</text>
+          <circle class="dotAC" cx="164" cy="77" r="4"></circle><circle class="dotBC" cx="176" cy="77" r="4"></circle>
+          <text class="vtype" x="130" y="138" text-anchor="middle">③ ○×○</text>
+          <circle class="dotAB" cx="124" cy="147" r="4"></circle><circle class="dotBC" cx="136" cy="147" r="4"></circle>
+          <text class="vtype" x="210" y="138" text-anchor="middle">⑤ ×○○</text>
+          <circle class="dotAC" cx="204" cy="147" r="4"></circle><circle class="dotAB" cx="216" cy="147" r="4"></circle>
           <text class="vtype" x="170" y="110" text-anchor="middle">① ○○○</text>
-          <text class="vtype-hl" x="170" y="184" text-anchor="middle">⑦ ××○</text>
+          <text class="vtype" x="170" y="182" text-anchor="middle">⑦ ××○</text>
+          <circle class="dotAC" cx="164" cy="191" r="4"></circle><circle class="dotBC" cx="176" cy="191" r="4"></circle>
           <text class="vtype" x="46" y="188" text-anchor="middle">⑧ ×××</text>
           <text class="label" x="46" y="204" text-anchor="middle">（どの円の外）</text>
-          <text class="label" x="170" y="230" text-anchor="middle">赤 ＝ A欄とC欄が食い違う4タイプ（Aの円とCの円の片方だけに入る）</text>
+          <circle class="dotAC" cx="52" cy="226" r="5"></circle><text class="legend-txt" x="62" y="230">N(A≠C)</text>
+          <circle class="dotAB" cx="142" cy="226" r="5"></circle><text class="legend-txt" x="152" y="230">N(A≠B)</text>
+          <circle class="dotBC" cx="232" cy="226" r="5"></circle><text class="legend-txt" x="242" y="230">N(B≠C)</text>
         </svg>
-        <div class="diagram-caption">説明書の8タイプは、「A欄が○か」「B欄が○か」「C欄が○か」の真偽の組み合わせそのもの――3つの円が作る<strong>8つの領域と1対1に対応</strong>する（丸数字は上の表のタイプ番号）。<strong>赤＝A≠C</strong>は「Aの円とCの円の片方だけ」に入る4領域。見比べると、④⑤は「Aの円とBの円の片方だけ」（＝A≠B）、②⑦は「Bの円とCの円の片方だけ」（＝B≠C）にもなっていて、<strong>赤の領域は必ずA≠BかB≠Cのどちらかに拾われる</strong>。これが N(A≠C) ≤ N(A≠B)＋N(B≠C) の正体だ</div>
+        <div class="diagram-caption">説明書の8タイプは、「A欄が○か」「B欄が○か」「C欄が○か」の真偽の組み合わせそのもの――3つの円が作る<strong>8つの領域と1対1に対応</strong>する（丸数字は上の表のタイプ番号）。各タイプの下の色点は、そのタイプが数えられる集まりを示す：<strong style="color:#b5504a">赤＝N(A≠C)</strong>・<strong style="color:#5b3fa6">紫＝N(A≠B)</strong>・<strong style="color:#2f8f65">緑＝N(B≠C)</strong>。見てのとおり、<strong>赤い点のある4タイプ（②④⑤⑦）には、必ず紫か緑の点も付いている</strong>――N(A≠C)のメンバー全員が、N(A≠B)かN(B≠C)にも所属する。これが N(A≠C) ≤ N(A≠B)＋N(B≠C) の正体だ。点が1つもない①⑧は、どの数え上げにも入らない</div>
       </div>
 
       <div class="dialogue-scene">
