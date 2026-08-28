@@ -123,18 +123,6 @@
           </div>
           <div class="dialog-bubble">紙に8タイプを書き出して数えようとして、気づいてしまいました。これ、表を作らなくても言えることです。<strong>A欄とC欄が食い違っている説明書</strong>を1冊、手に取ったとしますね。その説明書のB欄を見ると、答えは○か×のどちらかです。ところがA欄とC欄は違う答えなのだから、<strong>B欄は、A欄とC欄の両方と同じではいられません</strong>。BがAと同じなら、BはCと違う。BがAと違うなら、その時点でAとBが食い違っています。つまり――<strong>「A≠C」の説明書は、1冊残らず「A≠B」グループか「B≠C」グループのどちらか（または両方）に入っている</strong>！</div>
         </div>
-      </div>
-
-      <div class="diagram-box">
-        <svg class="bq-svg" viewBox="0 0 340 205" width="100%" role="img" aria-label="同じ形の3つの円（A欄が○、B欄が○、C欄が○）のベン図を3つ並べ、左はN(A≠C)の4領域を赤、中央はN(A≠B)の4領域を紫、右はN(B≠C)の4領域を緑で塗った図。8タイプは8つの領域に対応し、丸数字で示されている。左で赤く塗られた4領域は、中央の紫か右の緑でも必ず塗られている">
-          <text class="strong" x="170" y="16" text-anchor="middle">3つの数え上げを、同じベン図の上で塗り分ける</text>
-          <g id="triple-venn"></g>
-          <text class="label" x="170" y="198" text-anchor="middle">色つきの丸数字 ＝ その数え上げに入る4タイプ（番号は上の表と対応）</text>
-        </svg>
-        <div class="diagram-caption">同じベン図（円は「A欄が○」「B欄が○」「C欄が○」、8タイプ＝8領域）を3枚並べ、<strong style="color:#b5504a">左＝N(A≠C)</strong>・<strong style="color:#5b3fa6">中央＝N(A≠B)</strong>・<strong style="color:#2f8f65">右＝N(B≠C)</strong>に入る領域だけを塗った。どの図でも、塗られるのは該当する2つの円の「片方だけ」に入る4領域だ。ここで左の赤い4領域（②④⑤⑦）を、中央と右で探してみてほしい。<strong>④⑤は中央で紫に、②⑦は右で緑に塗られている</strong>――赤の領域は1つ残らず、紫か緑のどちらかでも塗られる。これが N(A≠C) ≤ N(A≠B)＋N(B≠C) の正体だ</div>
-      </div>
-
-      <div class="dialogue-scene">
         <div class="dialog-row">
           <div class="dialog-character">
             <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
@@ -149,6 +137,18 @@
           </div>
           <div class="dialog-bubble">N₁のメンバーを1冊ずつ、所属先のグループに置いていくと、全員がN₂かN₃のどこかに収まります。同じ冊数を2つの入れ物に分配するのだから、入れ物の大きさの合計は中身より小さくなれません。つまり<strong>N₁ ≤ N₂＋N₃</strong>。全体をNで割れば割合になって……<strong>D(A,C) ≤ D(A,B)＋D(B,C)</strong>。……できました。これが、ベルの不等式ですか？ 使ったのは「B欄は○か×のどちらか」ということと、個数の足し算だけです。こんなに単純でいいんでしょうか。</div>
         </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" viewBox="0 0 340 205" width="100%" role="img" aria-label="同じ形の3つの円（A欄が○、B欄が○、C欄が○）のベン図を3つ並べ、左はN(A≠C)の4領域を赤、中央はN(A≠B)の4領域を紫、右はN(B≠C)の4領域を緑で塗った図。8タイプは8つの領域に対応し、丸数字で示されている。左で赤く塗られた4領域は、中央の紫か右の緑でも必ず塗られている">
+          <text class="strong" x="170" y="16" text-anchor="middle">3つの数え上げを、同じベン図の上で塗り分ける</text>
+          <g id="triple-venn"></g>
+          <text class="label" x="170" y="198" text-anchor="middle">色つきの丸数字 ＝ その数え上げに入る4タイプ（番号は上の表と対応）</text>
+        </svg>
+        <div class="diagram-caption">同じベン図（円は「A欄が○」「B欄が○」「C欄が○」、8タイプ＝8領域）を3枚並べ、<strong style="color:#b5504a">左＝N(A≠C)＝N₁</strong>・<strong style="color:#5b3fa6">中央＝N(A≠B)＝N₂</strong>・<strong style="color:#2f8f65">右＝N(B≠C)＝N₃</strong>に入る領域だけを塗った。どの図でも、塗られるのは該当する2つの円の「片方だけ」に入る4領域だ。ここで左の赤い4領域（②④⑤⑦）を、中央と右で探してみてほしい。<strong>④⑤は中央で紫に、②⑦は右で緑に塗られている</strong>――赤の領域は1つ残らず、紫か緑のどちらかでも塗られる。これが N₁ ≤ N₂＋N₃ の中身だ</div>
+      </div>
+
+      <div class="dialogue-scene">
         <div class="dialog-row">
           <div class="dialog-character">
             <div class="dialog-avatar mentor"><img src="images/catThink.webp" width="300" height="386" alt=""></div>
