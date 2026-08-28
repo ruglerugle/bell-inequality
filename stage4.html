@@ -37,8 +37,10 @@
   .bq-svg .hl{fill:rgba(181,80,74,.12)}
   .bq-svg .vennA{fill:rgba(72,104,143,.10);stroke:#48688f;stroke-width:2}
   .bq-svg .vennB{fill:rgba(47,138,143,.10);stroke:#2f8a8f;stroke-width:2}
+  .bq-svg .vennC{fill:rgba(122,106,47,.08);stroke:#7a6a2f;stroke-width:2}
   .bq-svg .vlabelA{fill:#48688f;font-size:13px;font-weight:900}
   .bq-svg .vlabelB{fill:#2f8a8f;font-size:13px;font-weight:900}
+  .bq-svg .vlabelC{fill:#7a6a2f;font-size:13px;font-weight:900}
   .bq-svg .vtype{fill:var(--ink);font-size:12px;font-weight:800}
   .bq-svg .vtype-hl{fill:#b5504a;font-size:12px;font-weight:900}
 </style>
@@ -128,24 +130,26 @@
       </div>
 
       <div class="diagram-box">
-        <svg class="bq-svg" viewBox="0 0 340 205" width="100%" role="img" aria-label="8タイプの説明書を2つの円のベン図に配置した図。左の円がA≠Bグループ、右の円がB≠Cグループ。AとCが食い違う4タイプは赤で強調され、すべて必ずどちらかの円の中に入っている。円の外にいるのは全部同じ答えの2タイプだけ">
-          <text class="strong" x="170" y="16" text-anchor="middle">ベン図で見る ― 「A≠C」（赤）は必ずどちらかの円の中</text>
-          <circle class="vennA" cx="135" cy="112" r="62"></circle>
-          <circle class="vennB" cx="205" cy="112" r="62"></circle>
-          <text class="vlabelA" x="96" y="42" text-anchor="middle">A≠B</text>
-          <text class="vlabelB" x="244" y="42" text-anchor="middle">B≠C</text>
-          <text class="vtype-hl" x="107" y="106" text-anchor="middle">④ ○××</text>
-          <text class="vtype-hl" x="107" y="128" text-anchor="middle">⑤ ×○○</text>
-          <text class="vtype" x="170" y="106" text-anchor="middle">③ ○×○</text>
-          <text class="vtype" x="170" y="128" text-anchor="middle">⑥ ×○×</text>
-          <text class="vtype-hl" x="233" y="106" text-anchor="middle">② ○○×</text>
-          <text class="vtype-hl" x="233" y="128" text-anchor="middle">⑦ ××○</text>
-          <text class="vtype" x="38" y="106" text-anchor="middle">① ○○○</text>
-          <text class="vtype" x="38" y="128" text-anchor="middle">⑧ ×××</text>
-          <text class="label" x="38" y="146" text-anchor="middle">どちらでもない</text>
-          <text class="label" x="170" y="196" text-anchor="middle">赤 ＝ A欄とC欄が食い違う4タイプ</text>
+        <svg class="bq-svg" viewBox="0 0 340 240" width="100%" role="img" aria-label="A欄が○、B欄が○、C欄が○という3つの円のベン図。8タイプの説明書が8つの領域に1つずつ対応する。AとCが食い違う4タイプは赤で強調され、Aの円とCの円の片方だけに入る領域に位置している">
+          <text class="strong" x="170" y="16" text-anchor="middle">ベン図で見る ― A・B・C欄の○×が作る8つの領域</text>
+          <circle class="vennA" cx="135" cy="98" r="58"></circle>
+          <circle class="vennB" cx="205" cy="98" r="58"></circle>
+          <circle class="vennC" cx="170" cy="152" r="58"></circle>
+          <text class="vlabelA" x="78" y="36" text-anchor="middle">A欄が○</text>
+          <text class="vlabelB" x="262" y="36" text-anchor="middle">B欄が○</text>
+          <text class="vlabelC" x="252" y="204" text-anchor="middle">C欄が○</text>
+          <text class="vtype-hl" x="108" y="82" text-anchor="middle">④ ○××</text>
+          <text class="vtype" x="232" y="82" text-anchor="middle">⑥ ×○×</text>
+          <text class="vtype-hl" x="170" y="70" text-anchor="middle">② ○○×</text>
+          <text class="vtype" x="130" y="140" text-anchor="middle">③ ○×○</text>
+          <text class="vtype-hl" x="210" y="140" text-anchor="middle">⑤ ×○○</text>
+          <text class="vtype" x="170" y="110" text-anchor="middle">① ○○○</text>
+          <text class="vtype-hl" x="170" y="184" text-anchor="middle">⑦ ××○</text>
+          <text class="vtype" x="46" y="188" text-anchor="middle">⑧ ×××</text>
+          <text class="label" x="46" y="204" text-anchor="middle">（どの円の外）</text>
+          <text class="label" x="170" y="230" text-anchor="middle">赤 ＝ A欄とC欄が食い違う4タイプ（Aの円とCの円の片方だけに入る）</text>
         </svg>
-        <div class="diagram-caption">うさ美の論法をベン図にしたもの（丸数字は上の表のタイプ番号、○×はA・B・C欄の答え）。<strong>赤の4タイプ（A≠C）は、1つ残らず左右どちらかの円に収まっている</strong>――B欄はA欄かC欄のどちらかと必ず食い違うからだ。円の外に逃げられるのは、3つの欄が全部同じ①と⑧だけ。だから「A≠Cの冊数」は「A≠Bの冊数＋B≠Cの冊数」を超えられない</div>
+        <div class="diagram-caption">説明書の8タイプは、「A欄が○か」「B欄が○か」「C欄が○か」の真偽の組み合わせそのもの――3つの円が作る<strong>8つの領域と1対1に対応</strong>する（丸数字は上の表のタイプ番号）。<strong>赤＝A≠C</strong>は「Aの円とCの円の片方だけ」に入る4領域。見比べると、④⑤は「Aの円とBの円の片方だけ」（＝A≠B）、②⑦は「Bの円とCの円の片方だけ」（＝B≠C）にもなっていて、<strong>赤の領域は必ずA≠BかB≠Cのどちらかに拾われる</strong>。これが N(A≠C) ≤ N(A≠B)＋N(B≠C) の正体だ</div>
       </div>
 
       <div class="dialogue-scene">
