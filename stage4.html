@@ -35,15 +35,10 @@
   .bq-svg .head-cell{fill:var(--gold-dark);font-size:11.5px;font-weight:900}
   .bq-svg .check{fill:#b5504a;font-size:13px;font-weight:900}
   .bq-svg .hl{fill:rgba(181,80,74,.12)}
-  .bq-svg .vennA{fill:rgba(72,104,143,.10);stroke:#48688f;stroke-width:2}
-  .bq-svg .vennB{fill:rgba(47,138,143,.10);stroke:#2f8a8f;stroke-width:2}
-  .bq-svg .vennC{fill:rgba(122,106,47,.08);stroke:#7a6a2f;stroke-width:2}
-  .bq-svg .vlabelA{fill:#48688f;font-size:13px;font-weight:900}
-  .bq-svg .vlabelB{fill:#2f8a8f;font-size:13px;font-weight:900}
-  .bq-svg .vlabelC{fill:#7a6a2f;font-size:13px;font-weight:900}
-  .bq-svg .vtype{fill:var(--ink);font-size:12px;font-weight:800;paint-order:stroke;stroke:#fdfcf8;stroke-width:3px;stroke-linejoin:round}
-  .bq-svg .vfill{opacity:.4}
-  .bq-svg .legend-txt{fill:var(--ink);font-size:12px;font-weight:900}
+  .bq-svg .tv-label{font-size:13px;font-weight:900}
+  .bq-svg .tv-letter{font-size:10px;font-weight:900}
+  .bq-svg .tv-num{font-size:11px;font-weight:900;paint-order:stroke;stroke:#fdfcf8;stroke-width:3px;stroke-linejoin:round}
+  .bq-svg .tv-num-dim{font-size:11px;font-weight:700;fill:#8a93a5;paint-order:stroke;stroke:#fdfcf8;stroke-width:3px;stroke-linejoin:round}
 </style>
 </head>
 <body>
@@ -131,53 +126,12 @@
       </div>
 
       <div class="diagram-box">
-        <svg class="bq-svg" viewBox="0 0 340 240" width="100%" role="img" aria-label="A欄が○、B欄が○、C欄が○という3つの円のベン図。8タイプの説明書が8つの領域に1つずつ対応し、各領域は所属する数え上げの色で塗られている。N(A≠C)は赤、N(A≠B)は紫、N(B≠C)は緑で、2つに所属する領域は2色の縞。赤を含む4領域はすべて紫か緑も含み、中心と円の外だけが無色">
-          <defs>
-            <pattern id="st-rp" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
-              <rect width="10" height="10" fill="#b5504a"></rect><rect width="5" height="10" fill="#5b3fa6"></rect>
-            </pattern>
-            <pattern id="st-rg" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
-              <rect width="10" height="10" fill="#b5504a"></rect><rect width="5" height="10" fill="#2f8f65"></rect>
-            </pattern>
-            <pattern id="st-pg" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
-              <rect width="10" height="10" fill="#5b3fa6"></rect><rect width="5" height="10" fill="#2f8f65"></rect>
-            </pattern>
-            <mask id="m-Aonly"><rect x="0" y="0" width="340" height="240" fill="#fff"></rect><circle cx="205" cy="98" r="58" fill="#000"></circle><circle cx="170" cy="152" r="58" fill="#000"></circle></mask>
-            <mask id="m-Bonly"><rect x="0" y="0" width="340" height="240" fill="#fff"></rect><circle cx="135" cy="98" r="58" fill="#000"></circle><circle cx="170" cy="152" r="58" fill="#000"></circle></mask>
-            <mask id="m-Conly"><rect x="0" y="0" width="340" height="240" fill="#fff"></rect><circle cx="135" cy="98" r="58" fill="#000"></circle><circle cx="205" cy="98" r="58" fill="#000"></circle></mask>
-            <mask id="m-ABnotC"><rect x="0" y="0" width="340" height="240" fill="#000"></rect><circle cx="205" cy="98" r="58" fill="#fff"></circle><circle cx="170" cy="152" r="58" fill="#000"></circle></mask>
-            <mask id="m-ACnotB"><rect x="0" y="0" width="340" height="240" fill="#000"></rect><circle cx="170" cy="152" r="58" fill="#fff"></circle><circle cx="205" cy="98" r="58" fill="#000"></circle></mask>
-            <mask id="m-BCnotA"><rect x="0" y="0" width="340" height="240" fill="#000"></rect><circle cx="170" cy="152" r="58" fill="#fff"></circle><circle cx="135" cy="98" r="58" fill="#000"></circle></mask>
-          </defs>
-          <text class="strong" x="170" y="16" text-anchor="middle">ベン図で見る ― 8つの領域と3つの数え上げ</text>
-          <g class="vfill">
-            <circle cx="135" cy="98" r="58" fill="url(#st-rp)" mask="url(#m-Aonly)"></circle>
-            <circle cx="135" cy="98" r="58" fill="url(#st-rg)" mask="url(#m-ABnotC)"></circle>
-            <circle cx="135" cy="98" r="58" fill="url(#st-pg)" mask="url(#m-ACnotB)"></circle>
-            <circle cx="205" cy="98" r="58" fill="url(#st-rp)" mask="url(#m-BCnotA)"></circle>
-            <circle cx="205" cy="98" r="58" fill="url(#st-pg)" mask="url(#m-Bonly)"></circle>
-            <circle cx="170" cy="152" r="58" fill="url(#st-rg)" mask="url(#m-Conly)"></circle>
-          </g>
-          <circle class="vennA" cx="135" cy="98" r="58"></circle>
-          <circle class="vennB" cx="205" cy="98" r="58"></circle>
-          <circle class="vennC" cx="170" cy="152" r="58"></circle>
-          <text class="vlabelA" x="78" y="36" text-anchor="middle">A欄が○</text>
-          <text class="vlabelB" x="262" y="36" text-anchor="middle">B欄が○</text>
-          <text class="vlabelC" x="252" y="204" text-anchor="middle">C欄が○</text>
-          <text class="vtype" x="108" y="84" text-anchor="middle">④ ○××</text>
-          <text class="vtype" x="232" y="84" text-anchor="middle">⑥ ×○×</text>
-          <text class="vtype" x="170" y="72" text-anchor="middle">② ○○×</text>
-          <text class="vtype" x="130" y="140" text-anchor="middle">③ ○×○</text>
-          <text class="vtype" x="210" y="140" text-anchor="middle">⑤ ×○○</text>
-          <text class="vtype" x="170" y="112" text-anchor="middle">① ○○○</text>
-          <text class="vtype" x="170" y="186" text-anchor="middle">⑦ ××○</text>
-          <text class="vtype" x="46" y="188" text-anchor="middle">⑧ ×××</text>
-          <text class="label" x="46" y="204" text-anchor="middle">（どの円の外）</text>
-          <rect x="42" y="218" width="14" height="12" fill="#b5504a" rx="2"></rect><text class="legend-txt" x="62" y="228">N(A≠C)</text>
-          <rect x="132" y="218" width="14" height="12" fill="#5b3fa6" rx="2"></rect><text class="legend-txt" x="152" y="228">N(A≠B)</text>
-          <rect x="222" y="218" width="14" height="12" fill="#2f8f65" rx="2"></rect><text class="legend-txt" x="242" y="228">N(B≠C)</text>
+        <svg class="bq-svg" viewBox="0 0 340 205" width="100%" role="img" aria-label="同じ形の3つの円（A欄が○、B欄が○、C欄が○）のベン図を3つ並べ、左はN(A≠C)の4領域を赤、中央はN(A≠B)の4領域を紫、右はN(B≠C)の4領域を緑で塗った図。8タイプは8つの領域に対応し、丸数字で示されている。左で赤く塗られた4領域は、中央の紫か右の緑でも必ず塗られている">
+          <text class="strong" x="170" y="16" text-anchor="middle">3つの数え上げを、同じベン図の上で塗り分ける</text>
+          <g id="triple-venn"></g>
+          <text class="label" x="170" y="198" text-anchor="middle">色つきの丸数字 ＝ その数え上げに入る4タイプ（番号は上の表と対応）</text>
         </svg>
-        <div class="diagram-caption">説明書の8タイプは、「A欄が○か」「B欄が○か」「C欄が○か」の真偽の組み合わせそのもの――3つの円が作る<strong>8つの領域と1対1に対応</strong>する（丸数字は上の表のタイプ番号）。各領域は所属する数え上げの色で塗ってある：<strong style="color:#b5504a">赤＝N(A≠C)</strong>・<strong style="color:#5b3fa6">紫＝N(A≠B)</strong>・<strong style="color:#2f8f65">緑＝N(B≠C)</strong>。2色の縞は両方に数えられる領域だ。見てのとおり、<strong>赤を含む4領域（②④⑤⑦）は、必ず紫か緑との縞になっている</strong>――N(A≠C)のメンバー全員が、N(A≠B)かN(B≠C)にも所属する。これが N(A≠C) ≤ N(A≠B)＋N(B≠C) の正体だ。無色の①⑧は、どの数え上げにも入らない</div>
+        <div class="diagram-caption">同じベン図（円は「A欄が○」「B欄が○」「C欄が○」、8タイプ＝8領域）を3枚並べ、<strong style="color:#b5504a">左＝N(A≠C)</strong>・<strong style="color:#5b3fa6">中央＝N(A≠B)</strong>・<strong style="color:#2f8f65">右＝N(B≠C)</strong>に入る領域だけを塗った。どの図でも、塗られるのは該当する2つの円の「片方だけ」に入る4領域だ。ここで左の赤い4領域（②④⑤⑦）を、中央と右で探してみてほしい。<strong>④⑤は中央で紫に、②⑦は右で緑に塗られている</strong>――赤の領域は1つ残らず、紫か緑のどちらかでも塗られる。これが N(A≠C) ≤ N(A≠B)＋N(B≠C) の正体だ</div>
       </div>
 
       <div class="dialogue-scene">
@@ -267,6 +221,60 @@
 
 <script src="js/progress.js"></script>
 <script>BQ.initStagePage(4);</script>
+
+<script>
+(function(){
+  // 3枚並びのベン図（N(A≠C)・N(A≠B)・N(B≠C)を1色ずつ塗り分け）をJSで生成
+  var g = document.getElementById('triple-venn');
+  if (!g) return;
+  var ns = 'http://www.w3.org/2000/svg';
+  var cy = 110, r = 24;
+  var CIRCLE_COLORS = { A: '#48688f', B: '#2f8a8f', C: '#7a6a2f' };
+  var panels = [
+    { cx: 62,  pair: ['A', 'C'], color: '#b5504a', label: 'N(A≠C)', members: [2, 4, 5, 7] },
+    { cx: 170, pair: ['A', 'B'], color: '#5b3fa6', label: 'N(A≠B)', members: [3, 4, 5, 6] },
+    { cx: 278, pair: ['B', 'C'], color: '#2f8f65', label: 'N(B≠C)', members: [2, 3, 6, 7] }
+  ];
+  var OFF = { A: [-15, -11], B: [15, -11], C: [0, 11] };       // 各円の中心（パネル中心からのずれ）
+  var REG = { 1: [0, -6], 2: [0, -26], 3: [-18, 6], 4: [-27, -20], 5: [18, 6], 6: [27, -20], 7: [0, 26], 8: [-40, 30] };
+  var LETTER = { A: [-33, -36], B: [33, -36], C: [32, 36] };
+  var NUMS = '①②③④⑤⑥⑦⑧';
+
+  function circlePath(cx0, cy0) {
+    return 'M ' + (cx0 - r) + ' ' + cy0 + ' a ' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0 a ' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0 ';
+  }
+  function text(x, y, cls, fill, content) {
+    var t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', x); t.setAttribute('y', y); t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('class', cls);
+    if (fill) t.setAttribute('fill', fill);
+    t.textContent = content;
+    g.appendChild(t);
+  }
+
+  panels.forEach(function (p) {
+    text(p.cx, 44, 'tv-label', p.color, p.label);
+    // 2つの円のevenodd塗り＝「片方だけ」に入る領域（対称差）
+    var d = '';
+    p.pair.forEach(function (k) { d += circlePath(p.cx + OFF[k][0], cy + OFF[k][1]); });
+    var path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', d); path.setAttribute('fill-rule', 'evenodd');
+    path.setAttribute('fill', p.color); path.setAttribute('opacity', '0.35');
+    g.appendChild(path);
+    ['A', 'B', 'C'].forEach(function (k) {
+      var ci = document.createElementNS(ns, 'circle');
+      ci.setAttribute('cx', p.cx + OFF[k][0]); ci.setAttribute('cy', cy + OFF[k][1]); ci.setAttribute('r', r);
+      ci.setAttribute('fill', 'none'); ci.setAttribute('stroke', CIRCLE_COLORS[k]); ci.setAttribute('stroke-width', '1.6');
+      g.appendChild(ci);
+      text(p.cx + LETTER[k][0], cy + LETTER[k][1] + 4, 'tv-letter', CIRCLE_COLORS[k], k);
+    });
+    for (var n = 1; n <= 8; n++) {
+      var mem = p.members.indexOf(n) !== -1;
+      text(p.cx + REG[n][0], cy + REG[n][1] + 4, mem ? 'tv-num' : 'tv-num-dim', mem ? p.color : null, NUMS.charAt(n - 1));
+    }
+  });
+})();
+</script>
 
 <script>
 (function(){
