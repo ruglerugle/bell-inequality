@@ -40,6 +40,15 @@
   .bq-svg .dial{stroke:#b5504a;stroke-width:2.2}
   .bq-svg .resOK{fill:var(--ok);font-size:17px;font-weight:900}
   .bq-svg .resNG{fill:var(--ng);font-size:17px;font-weight:900}
+  .bq-svg .arrowhead2{fill:var(--muted)}
+  .bq-svg .polwave{fill:none;stroke:#48688f;stroke-width:2}
+  .bq-svg .polvec{stroke:#9fb9de;stroke-width:1.4}
+  .bq-svg .crosssec{fill:var(--paper2);stroke:var(--line);stroke-width:1.5}
+  .bq-svg .polaxis{stroke:#b5504a;stroke-width:2;stroke-dasharray:5 4}
+  .bq-svg .poldot{fill:#48688f}
+  .sim-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .sim-controls .btn{font-size:12.5px;padding:.45rem .9rem}
+  .sim-controls .btn[aria-pressed="true"]{background:linear-gradient(#7d9fce,#48688f);border-color:#35507a;color:#fff}
 </style>
 </head>
 <body>
@@ -89,6 +98,31 @@
           </div>
           <div class="dialog-bubble">ベルの不等式の対決が行われる「試合会場」を組み立てよう。使う道具は光だ。量子力学の教室で、光は波の性質と粒（<strong>光子</strong>）の性質を併せ持つことを学んだね。今日はその光の、まだ話していなかった性質をひとつ紹介する。<strong>偏光（へんこう）</strong>だ。光は電気の場（電場）が振動しながら進む波で、その<strong>振動の向きは、進む方向と直角</strong>になっている。たとえば真横に進む光なら、振動は縦方向かもしれないし、横方向かもしれないし、斜め45°かもしれない。この<strong>振動の向き</strong>のことを偏光と呼ぶんだ。ロープを張って手で上下に揺らせば縦揺れの波、左右に揺らせば横揺れの波ができるのと同じだよ。</div>
         </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" id="pol-svg" viewBox="0 0 340 170" width="100%" role="img" aria-label="右へ進む光の波のアニメーション。進行方向と直角な向きに電場が振動しており、ボタンで振動の向きを縦・横・斜め45°に切り替えられる。右側には光を正面から見たときの振動の向きが両矢印で示される">
+          <text class="strong" x="14" y="18">偏光 ＝ 波の「揺れる向き」（進む方向とは直角）</text>
+          <line class="axis" x1="16" y1="90" x2="222" y2="90"></line>
+          <polygon class="arrowhead2" points="230,90 220,86 220,94"></polygon>
+          <text class="label" x="180" y="108">進む方向 →</text>
+          <g id="pol-vecs"></g>
+          <path class="polwave" id="pol-tips"></path>
+          <text class="label" x="285" y="34" text-anchor="middle">正面から見ると</text>
+          <circle class="crosssec" cx="285" cy="88" r="36"></circle>
+          <line class="polaxis" id="pol-cross-axis" x1="285" y1="52" x2="285" y2="124"></line>
+          <circle class="poldot" id="pol-cross-dot" cx="285" cy="88" r="5"></circle>
+          <text class="lbA" id="pol-mode-label" x="285" y="146" text-anchor="middle">振動の向き：縦</text>
+        </svg>
+        <div class="sim-controls">
+          <button class="btn" data-polmode="0" aria-pressed="true">縦揺れ</button>
+          <button class="btn" data-polmode="90" aria-pressed="false">横揺れ</button>
+          <button class="btn" data-polmode="45" aria-pressed="false">斜め45°</button>
+        </div>
+        <div class="diagram-caption">右へ進む光の波。細い線の1本1本が、その場所での電場の振動（揺れ）を表す。揺れの向きは<strong>進む方向と直角</strong>で、縦・横・斜め45°など自由な向きがありえる――この向きが<strong>偏光</strong>。ボタンで切り替えて、右の「正面から見た図」（光がこちらへ向かってくるところを想像した図）と見比べてみよう。横揺れは画面の手前↔奥の揺れなので、横から見ると浅く、正面から見るとはっきり分かる</div>
+      </div>
+
+      <div class="dialogue-scene">
         <div class="dialog-row right">
           <div class="dialog-character">
             <div class="dialog-avatar student"><img src="images/rabbit.webp" width="300" height="386" alt=""></div>
@@ -252,6 +286,93 @@
 
 <script src="js/progress.js"></script>
 <script>BQ.initStagePage(2);</script>
+
+<script>
+(function(){
+  var svg = document.getElementById('pol-svg');
+  if (!svg) return;
+  var vecsG = document.getElementById('pol-vecs'), tips = document.getElementById('pol-tips'),
+      crossAxis = document.getElementById('pol-cross-axis'), crossDot = document.getElementById('pol-cross-dot'),
+      modeLabel = document.getElementById('pol-mode-label');
+  var ns = 'http://www.w3.org/2000/svg';
+  var X0 = 20, X1 = 214, AXY = 90, A = 30, LAM = 72, CCX = 285, CCY = 88, CR = 32;
+  var mode = 0; // 振動の向き（度）: 0=縦, 90=横（奥行き）, 45=斜め
+  var MODE_NAMES = { 0: '縦', 90: '横', 45: '斜め45°' };
+
+  // 横から見た図での、振動1単位ぶんの画面上のずれ。
+  // 縦揺れは画面の上方向、横揺れ（奥行き）は手前＝左下方向に浅く投影して立体感を出す
+  function unit(m) {
+    var r = m * Math.PI / 180;
+    return { x: Math.sin(r) * -0.42, y: Math.cos(r) * -1 + Math.sin(r) * 0.26 };
+  }
+  // 正面から見た図では、奥行き方向がそのまま画面の横方向になる
+  function crossUnit(m) {
+    var r = m * Math.PI / 180;
+    return { x: Math.sin(r), y: -Math.cos(r) };
+  }
+
+  var lines = [];
+  for (var x = X0; x <= X1; x += 12) {
+    var l = document.createElementNS(ns, 'line');
+    l.setAttribute('class', 'polvec');
+    vecsG.appendChild(l);
+    lines.push({ el: l, x: x });
+  }
+
+  function draw(t) {
+    var u = unit(mode);
+    var d = '', first = true;
+    for (var x = X0; x <= X1; x += 4) {
+      var s = A * Math.sin(2 * Math.PI * (x - t) / LAM);
+      d += (first ? 'M' : 'L') + (x + s * u.x).toFixed(1) + ' ' + (AXY + s * u.y).toFixed(1);
+      first = false;
+    }
+    tips.setAttribute('d', d);
+    lines.forEach(function (o) {
+      var s = A * Math.sin(2 * Math.PI * (o.x - t) / LAM);
+      o.el.setAttribute('x1', o.x); o.el.setAttribute('y1', AXY);
+      o.el.setAttribute('x2', (o.x + s * u.x).toFixed(1)); o.el.setAttribute('y2', (AXY + s * u.y).toFixed(1));
+    });
+    var cu = crossUnit(mode);
+    crossAxis.setAttribute('x1', (CCX - cu.x * CR).toFixed(1)); crossAxis.setAttribute('y1', (CCY - cu.y * CR).toFixed(1));
+    crossAxis.setAttribute('x2', (CCX + cu.x * CR).toFixed(1)); crossAxis.setAttribute('y2', (CCY + cu.y * CR).toFixed(1));
+    var s0 = Math.sin(2 * Math.PI * (X0 - t) / LAM) * (CR - 6);
+    crossDot.setAttribute('cx', (CCX + s0 * cu.x).toFixed(1)); crossDot.setAttribute('cy', (CCY + s0 * cu.y).toFixed(1));
+    modeLabel.textContent = '振動の向き：' + MODE_NAMES[mode];
+  }
+
+  var t = 18;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-polmode]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      mode = parseInt(btn.getAttribute('data-polmode'), 10);
+      document.querySelectorAll('[data-polmode]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+      draw(t);
+    });
+  });
+
+  draw(t);
+  if (reduced) return;
+
+  var running = false, raf = null;
+  function loop() {
+    if (!running) return;
+    t += 0.9;
+    if (t > 1000 * LAM) t -= 1000 * LAM;
+    draw(t);
+    raf = requestAnimationFrame(loop);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es){
+      if (es[0].isIntersecting && !running) { running = true; loop(); }
+      else if (!es[0].isIntersecting && running) { running = false; if (raf) cancelAnimationFrame(raf); }
+    }, {threshold: 0.15}).observe(svg);
+  } else { running = true; loop(); }
+})();
+</script>
 
 <script>
 (function(){
