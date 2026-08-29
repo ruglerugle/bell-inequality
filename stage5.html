@@ -313,33 +313,11 @@
           <text class="label" x="62" y="136" text-anchor="middle">アリスの偏光板</text>
           <text class="label" x="62" y="150" text-anchor="middle">（角度a）</text>
           <text class="cl-ok" id="cl-res" x="28" y="96" text-anchor="middle"></text>
-          <g id="cl-photon-l">
-            <circle class="cl-ph" cx="0" cy="0" r="6"></circle>
-            <g class="cl-fuzzy">
-              <line x1="-11" y1="0" x2="11" y2="0"></line>
-              <line x1="0" y1="-11" x2="0" y2="11"></line>
-              <line x1="-8" y1="-8" x2="8" y2="8"></line>
-              <line x1="-8" y1="8" x2="8" y2="-8"></line>
-            </g>
-          </g>
-          <g id="cl-photon-r">
-            <circle class="cl-ph" cx="0" cy="0" r="6"></circle>
-            <g class="cl-fuzzy" id="cl-fuzzy-r">
-              <line x1="-11" y1="0" x2="11" y2="0"></line>
-              <line x1="0" y1="-11" x2="0" y2="11"></line>
-              <line x1="-8" y1="-8" x2="8" y2="8"></line>
-              <line x1="-8" y1="8" x2="8" y2="-8"></line>
-            </g>
-            <g id="cl-def" visibility="hidden">
-              <line class="cl-arrow" x1="0" y1="16" x2="0" y2="-16"></line>
-              <polygon class="cl-arrow-h" points="0,-20 -4,-12 4,-12"></polygon>
-              <polygon class="cl-arrow-h" points="0,20 -4,12 4,12"></polygon>
-            </g>
-          </g>
+          <g id="cl-pairs"></g>
           <text class="label" x="278" y="136" text-anchor="middle">ボブへ向かう光子</text>
           <text class="strong" id="cl-status" x="170" y="176" text-anchor="middle">もつれペア：どちらの光子も、偏光の向きはまだ決まっていない</text>
         </svg>
-        <div class="diagram-caption">測る前の2つの光子は、偏光の向きが決まっていない（<strong>薄い米印</strong>＝向き未定）。左の光子がアリスの偏光板（角度a）に届いて結果が出た瞬間――<strong>○なら、まだ飛行中のボブの光子の偏光が角度aに決まる（太い両矢印）。×なら a＋90°に決まる</strong>。アリスの結果はランダムなので、周回ごとに違う結末になる。この「瞬間に決まる」が本当の作用なのかは、まさに裁判の争点だ</div>
+        <div class="diagram-caption">測る前の2つの光子は、偏光の向きが決まっていない（<strong>薄い米印</strong>＝向き未定）。左の光子がアリスの偏光板（角度a）に届いて結果が出た瞬間――<strong>○なら、まだ飛行中のボブの光子の偏光が角度aに決まる（太い両矢印）。×なら a＋90°に決まる</strong>。ペアは次々と送り出され、アリスの結果はランダムなので、ペアごとに違う結末になる。この「瞬間に決まる」が本当の作用なのかは、まさに裁判の争点だ</div>
       </div>
 
       <div class="dialogue-scene">
@@ -756,70 +734,122 @@
 
 <script>
 (function(){
-  // 収縮アニメ：アリスの測定の瞬間に、ボブの光子の偏光が決まる
+  // 収縮アニメ：ペアが連続して流れ、アリスの測定の瞬間にボブの光子の偏光が決まる
   var svg = document.getElementById('cl-svg');
   if (!svg) return;
-  var phL = document.getElementById('cl-photon-l'), phR = document.getElementById('cl-photon-r'),
-      fuzzyR = document.getElementById('cl-fuzzy-r'), def = document.getElementById('cl-def'),
+  var container = document.getElementById('cl-pairs'),
       res = document.getElementById('cl-res'), status = document.getElementById('cl-status');
+  var ns = 'http://www.w3.org/2000/svg';
   var CX = 170, CY = 90, XL = 74, XR1 = 266, XR2 = 308;
-  var WAITING = 'もつれペア：どちらの光子も、偏光の向きはまだ決まっていない';
+  var T = 168, ARRIVE = 92; // 1ペアの周期と、左の光子が偏光板に届くフレーム
+  var N = 3; // 同時に流すペア数（T/Nごとに新しいペアが出発）
+
+  function fuzzyGroup() {
+    var g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'cl-fuzzy');
+    [[-11,0,11,0],[0,-11,0,11],[-8,-8,8,8],[-8,8,8,-8]].forEach(function (c) {
+      var l = document.createElementNS(ns, 'line');
+      l.setAttribute('x1', c[0]); l.setAttribute('y1', c[1]);
+      l.setAttribute('x2', c[2]); l.setAttribute('y2', c[3]);
+      g.appendChild(l);
+    });
+    return g;
+  }
+  function photonGroup(withDef) {
+    var g = document.createElementNS(ns, 'g');
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('class', 'cl-ph'); c.setAttribute('r', 6);
+    g.appendChild(c);
+    g.appendChild(fuzzyGroup());
+    if (withDef) {
+      var d = document.createElementNS(ns, 'g');
+      d.setAttribute('visibility', 'hidden');
+      var l = document.createElementNS(ns, 'line');
+      l.setAttribute('x1', 0); l.setAttribute('y1', 16); l.setAttribute('x2', 0); l.setAttribute('y2', -16);
+      l.setAttribute('stroke-width', 3);
+      d.appendChild(l);
+      [[0,-20,-4,-12,4,-12],[0,20,-4,12,4,12]].forEach(function (p) {
+        var po = document.createElementNS(ns, 'polygon');
+        po.setAttribute('points', p[0]+','+p[1]+' '+p[2]+','+p[3]+' '+p[4]+','+p[5]);
+        d.appendChild(po);
+      });
+      g.appendChild(d);
+    }
+    container.appendChild(g);
+    return g;
+  }
+
+  var pairs = [];
+  for (var i = 0; i < N; i++) {
+    pairs.push({
+      gL: photonGroup(false),
+      gR: photonGroup(true),
+      phase: -Math.round(i * T / N), // 時間差で出発させる
+      decided: false, ok: true
+    });
+  }
 
   function setPos(g, x) { g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + CY + ')'); }
 
-  function setCase(ok) {
-    res.textContent = ok ? '○' : '×';
-    res.setAttribute('class', ok ? 'cl-ok' : 'cl-ng');
-    var col = ok ? '#2f8f65' : '#b5504a';
-    def.setAttribute('transform', 'rotate(' + (ok ? 30 : 120) + ')');
-    def.querySelectorAll('line').forEach(function (l) { l.setAttribute('stroke', col); });
-    def.querySelectorAll('polygon').forEach(function (p) { p.setAttribute('fill', col); });
+  function decide(pair) {
+    pair.decided = true;
+    pair.ok = Math.random() < 0.5;
+    var col = pair.ok ? '#2f8f65' : '#b5504a';
+    var def = pair.gR.childNodes[2], fuzzy = pair.gR.childNodes[1];
+    def.setAttribute('transform', 'rotate(' + (pair.ok ? 30 : 120) + ')');
+    def.childNodes.forEach(function (el) {
+      el.setAttribute('stroke', col); el.setAttribute('fill', col);
+    });
     def.setAttribute('visibility', 'visible');
-    fuzzyR.setAttribute('visibility', 'hidden');
-    status.textContent = ok
+    fuzzy.setAttribute('visibility', 'hidden');
+    res.textContent = pair.ok ? '○' : '×';
+    res.setAttribute('class', pair.ok ? 'cl-ok' : 'cl-ng');
+    status.textContent = pair.ok
       ? 'アリス：○ → その瞬間、ボブの光子は「角度aの偏光」に決まった'
       : 'アリス：× → その瞬間、ボブの光子は「a＋90°の偏光」に決まった';
   }
 
-  function reset() {
-    setPos(phL, CX); setPos(phR, CX);
-    phL.setAttribute('opacity', 1);
-    fuzzyR.setAttribute('visibility', 'visible');
-    def.setAttribute('visibility', 'hidden');
-    res.textContent = '';
-    status.textContent = WAITING;
+  function resetPair(pair) {
+    pair.decided = false;
+    pair.gL.setAttribute('opacity', 1);
+    pair.gR.childNodes[1].setAttribute('visibility', 'visible');
+    pair.gR.childNodes[2].setAttribute('visibility', 'hidden');
   }
-  reset();
+
+  function drawPair(pair) {
+    var t = pair.phase;
+    if (t < 0) { setPos(pair.gL, CX); setPos(pair.gR, CX); pair.gL.setAttribute('opacity', 0); pair.gR.setAttribute('opacity', 0); return; }
+    pair.gR.setAttribute('opacity', 1);
+    if (t <= ARRIVE) {
+      var p = t / ARRIVE;
+      if (!pair.decided) pair.gL.setAttribute('opacity', 1);
+      setPos(pair.gL, CX - (CX - XL) * p);
+      setPos(pair.gR, CX + (XR1 - CX) * p);
+      if (t === ARRIVE) { decide(pair); pair.gL.setAttribute('opacity', 0); }
+    } else {
+      var q = (t - ARRIVE) / (T - ARRIVE - 8);
+      setPos(pair.gR, XR1 + (XR2 - XR1) * Math.min(q, 1));
+      if (q >= 1) pair.gR.setAttribute('opacity', 0);
+    }
+  }
 
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    setPos(phL, XL); phL.setAttribute('opacity', 0);
-    setPos(phR, XR1 + 20);
-    setCase(true);
+    // 静止画：決定済みのペアを1組だけ表示
+    var p0 = pairs[0];
+    p0.phase = ARRIVE; drawPair(p0);
+    pairs.slice(1).forEach(function (p) { p.phase = -1; drawPair(p); });
+    setPos(p0.gR, XR1 + 20);
     return;
   }
 
-  var t = 0, mode = 'fly', xR = CX, running = false, raf = null;
+  var running = false, raf = null;
   function step() {
     if (!running) return;
-    if (mode === 'fly') {
-      t += 1 / 80;
-      var p = Math.min(t, 1);
-      setPos(phL, CX - (CX - XL) * p);
-      xR = CX + (XR1 - CX) * p;
-      setPos(phR, xR);
-      if (p >= 1) {
-        setCase(Math.random() < 0.5);
-        phL.setAttribute('opacity', 0);
-        mode = 'continue';
-      }
-    } else if (mode === 'continue') {
-      xR += 1.4;
-      setPos(phR, xR);
-      if (xR >= XR2) { mode = 'pause'; t = 0; }
-    } else if (mode === 'pause') {
-      t += 1;
-      if (t > 90) { t = 0; mode = 'fly'; reset(); }
-    }
+    pairs.forEach(function (pair) {
+      pair.phase += 1;
+      if (pair.phase >= T) { pair.phase = 0; resetPair(pair); }
+      drawPair(pair);
+    });
     raf = requestAnimationFrame(step);
   }
   if ('IntersectionObserver' in window) {
