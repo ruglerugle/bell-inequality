@@ -50,7 +50,6 @@
   .bq-svg .uc-dot{fill:#7a6a2f}
   .bq-svg .uc-sintxt{fill:#b5504a;font-size:11.5px;font-weight:900}
   .bq-svg .uc-costxt{fill:#48688f;font-size:11.5px;font-weight:900}
-  .bq-svg .rp-beam{fill:#e8c07f}
   .bq-svg .rp-outline{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:5 4}
   .bq-svg .rp-pol{fill:#dfe9f6;stroke:#48688f;stroke-width:1.8}
   .bq-svg .rp-axis{stroke:#b5504a;stroke-width:2.6;stroke-linecap:round}
@@ -164,17 +163,35 @@
 
       <div class="diagram-box">
         <svg class="bq-svg" id="rp-svg" viewBox="0 0 340 185" width="100%" role="img" aria-label="縦に振動する光が回転する偏光板に入るアニメーション。偏光板の軸が回るにつれて通過後の光の明るさがcos²θで変わり、0°と180°では元の明るさのまま、90°と270°では真っ暗になる">
+          <defs>
+            <linearGradient id="beam-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f3c47a" stop-opacity="0"></stop>
+              <stop offset="0.28" stop-color="#f8d68e" stop-opacity="0.9"></stop>
+              <stop offset="0.5" stop-color="#fff7d2"></stop>
+              <stop offset="0.72" stop-color="#f8d68e" stop-opacity="0.9"></stop>
+              <stop offset="1" stop-color="#f3c47a" stop-opacity="0"></stop>
+            </linearGradient>
+            <filter id="beam-glow" x="-30%" y="-120%" width="160%" height="340%">
+              <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+            </filter>
+          </defs>
           <text class="strong" x="14" y="16">偏光板を回すと、通る明るさが cos²θ で変わる</text>
-          <rect class="rp-beam" x="20" y="78" width="112" height="26" rx="4"></rect>
+          <g>
+            <rect x="20" y="80" width="112" height="22" rx="8" fill="#f3c47a" filter="url(#beam-glow)" opacity="0.85"></rect>
+            <rect x="20" y="76" width="112" height="30" rx="6" fill="url(#beam-grad)"></rect>
+          </g>
           <line class="vecmain" x1="76" y1="102" x2="76" y2="80"></line>
           <polygon class="vecmain-h" points="76,74 72,84 80,84"></polygon>
           <polygon class="vecmain-h" points="76,108 72,98 80,98"></polygon>
-          <text class="label" x="20" y="70">入ってくる光（明るさ1、振動は縦）</text>
+          <text class="label" x="20" y="66">入ってくる光（明るさ1、振動は縦）</text>
           <circle class="rp-pol" cx="170" cy="91" r="36"></circle>
           <line class="rp-axis" id="rp-axis" x1="170" y1="59" x2="170" y2="123"></line>
           <text class="label" x="170" y="145" text-anchor="middle">偏光板（軸が回転中）</text>
-          <rect class="rp-outline" x="208" y="78" width="112" height="26" rx="4"></rect>
-          <rect class="rp-beam" id="rp-out" x="208" y="78" width="112" height="26" rx="4" opacity="1"></rect>
+          <rect class="rp-outline" x="208" y="76" width="112" height="30" rx="6"></rect>
+          <g id="rp-out" opacity="1">
+            <rect x="208" y="80" width="112" height="22" rx="8" fill="#f3c47a" filter="url(#beam-glow)" opacity="0.85"></rect>
+            <rect x="208" y="76" width="112" height="30" rx="6" fill="url(#beam-grad)"></rect>
+          </g>
           <text class="label" x="208" y="70">通った光</text>
           <text class="lbA" id="rp-theta" x="208" y="130">θ＝0°</text>
           <text class="strong" id="rp-bright" x="208" y="146">明るさ cos²θ＝100%</text>
