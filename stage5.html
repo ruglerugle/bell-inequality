@@ -50,6 +50,9 @@
   .bq-svg .uc-dot{fill:#7a6a2f}
   .bq-svg .uc-sintxt{fill:#b5504a;font-size:11.5px;font-weight:900}
   .bq-svg .uc-costxt{fill:#48688f;font-size:11.5px;font-weight:900}
+  .bq-svg .filter{fill:#dfe9f6;stroke:#48688f;stroke-width:1.5}
+  .bq-svg .photon{fill:#48688f}
+  .bq-svg .resNG{fill:var(--ng);font-size:14px;font-weight:900}
   .sim-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
   .sim-controls .btn{font-size:12.5px;padding:.45rem .9rem}
   .sim-controls .btn[aria-pressed="true"]{background:linear-gradient(#7d9fce,#48688f);border-color:#35507a;color:#fff}
@@ -156,6 +159,32 @@
           </div>
           <div class="dialog-bubble">振幅がcosθ倍になったのだから、明るさは<strong>cos²θ倍</strong>ですね（cos²θは「コサインθの2乗」の書き方でしたね）。検算します。θ＝0°なら cos²0°＝1で全部通る。θ＝90°なら cos²90°＝0で全滅。STAGE2の柵の話と一致します。θ＝45°なら (1/√2)²＝1/2でちょうど半分。……あ、でも先生、ここで前と同じ問題が起きます。<strong>光子1個は割れない</strong>んでした。明るさが cos²θ倍になるということは、光子の数が cos²θ倍に減るしかない。つまり<strong>1個1個の光子は、確率 cos²θ で通り、確率 sin²θ で吸収される</strong>（cos²θ＋sin²θは、矢印の長さ1を分解して2乗の和にしたものだから必ず1）。そういうことですか？</div>
         </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" id="ph2-svg" viewBox="0 0 340 195" width="100%" role="img" aria-label="θ＝30°の例で、波の見方と粒の見方を比べる図。上段では偏光板を通ると振幅がcos30°倍になり明るさが3/4倍になる。下段では光子が1個ずつ偏光板に飛び込み、確率3/4で丸ごと通り、確率1/4で丸ごと吸収される。通過数の集計が3/4に近づいていく">
+          <text class="strong" x="14" y="16">同じ現象の2つの見方（θ＝30°、cos²30°＝3/4 の例）</text>
+          <text class="lbA" x="14" y="38">波の見方：明るさが 3/4 倍になる</text>
+          <line class="axis" x1="20" y1="72" x2="320" y2="72"></line>
+          <rect class="filter" x="164" y="46" width="12" height="52" rx="4"></rect>
+          <line class="vecmain" x1="70" y1="72" x2="70" y2="32"></line>
+          <polygon class="vecmain-h" points="70,26 66,36 74,36"></polygon>
+          <text class="label" x="80" y="40">振幅 1（明るさ 1）</text>
+          <line class="vecmain" x1="240" y1="72" x2="240" y2="37"></line>
+          <polygon class="vecmain-h" points="240,31 236,41 244,41"></polygon>
+          <text class="label" x="250" y="40">振幅 cos30°＝0.87</text>
+          <text class="label" x="250" y="54">明るさ 0.87²＝3/4</text>
+          <text class="lbA" x="14" y="112">粒の見方：1個1個が、確率 3/4 で丸ごと通る</text>
+          <line class="axis" x1="20" y1="145" x2="320" y2="145"></line>
+          <rect class="filter" x="164" y="123" width="12" height="44" rx="4"></rect>
+          <circle class="photon" id="ph2-dot" cx="24" cy="145" r="5"></circle>
+          <text class="resNG" id="ph2-mark" x="170" y="120" text-anchor="middle"></text>
+          <text class="label" id="ph2-count" x="170" y="188" text-anchor="middle">通過 0 / 0 発</text>
+        </svg>
+        <div class="diagram-caption">上段が<strong>波の見方</strong>：偏光板を通ると振幅がcos30°倍になり、明るさ（＝振幅の2乗）は3/4倍に減る。下段が<strong>粒の見方</strong>：光子は割れないので、明るさが3/4になる方法は<strong>4個に3個の割合で丸ごと通る</strong>しかない。1個1個の運命はサイコロで、集計だけが3/4に近づいていく――波の「明るさの割合」が、粒の「確率」に化ける瞬間だ</div>
+      </div>
+
+      <div class="dialogue-scene">
         <div class="dialog-row">
           <div class="dialog-character">
             <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
@@ -369,6 +398,71 @@
     });
   });
   draw(30);
+})();
+</script>
+
+<script>
+(function(){
+  // 粒の見方アニメ：光子が1個ずつ偏光板に飛び込み、確率3/4で通過・1/4で吸収される
+  var svg = document.getElementById('ph2-svg');
+  if (!svg) return;
+  var dot = document.getElementById('ph2-dot'), mark = document.getElementById('ph2-mark'),
+      count = document.getElementById('ph2-count');
+  var X0 = 24, XP = 170, X1 = 314, P = 0.75;
+  var passed = 0, total = 0;
+
+  function setCount() {
+    var pct = total > 0 ? '（' + Math.round(100 * passed / total) + '%）' : '';
+    count.textContent = '通過 ' + passed + ' / ' + total + ' 発' + pct + '　→ 3/4＝75%に近づく';
+  }
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    dot.setAttribute('cx', 250); dot.setAttribute('fill', 'var(--ok)');
+    passed = 6; total = 8; setCount();
+    return;
+  }
+
+  var x = X0, mode = 'approach', wait = 0, running = false, raf = null;
+  function step() {
+    if (!running) return;
+    if (mode === 'approach') {
+      x += 3.2;
+      if (x >= XP - 8) {
+        total++;
+        if (Math.random() < P) {
+          mode = 'pass'; passed++;
+          dot.setAttribute('fill', 'var(--ok)');
+        } else {
+          mode = 'absorb'; wait = 26;
+          dot.setAttribute('opacity', 0);
+          mark.textContent = '× 吸収';
+        }
+        setCount();
+      }
+    } else if (mode === 'pass') {
+      x += 3.6;
+      if (x >= X1) { mode = 'reset'; wait = 10; }
+    } else if (mode === 'absorb') {
+      wait--;
+      if (wait <= 0) { mode = 'reset'; wait = 0; mark.textContent = ''; }
+    } else if (mode === 'reset') {
+      if (wait > 0) { wait--; }
+      else {
+        x = X0;
+        dot.setAttribute('opacity', 1);
+        dot.setAttribute('fill', '#48688f');
+        mode = 'approach';
+      }
+    }
+    dot.setAttribute('cx', Math.min(x, X1).toFixed(1));
+    raf = requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es){
+      if (es[0].isIntersecting && !running) { running = true; step(); }
+      else if (!es[0].isIntersecting && running) { running = false; if (raf) cancelAnimationFrame(raf); }
+    }, {threshold: 0.15}).observe(svg);
+  } else { running = true; step(); }
 })();
 </script>
 
