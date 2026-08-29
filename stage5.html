@@ -51,8 +51,8 @@
   .bq-svg .uc-sintxt{fill:#b5504a;font-size:11.5px;font-weight:900}
   .bq-svg .uc-costxt{fill:#48688f;font-size:11.5px;font-weight:900}
   .bq-svg .rp-outline{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:5 4}
-  .bq-svg .rp-pol{fill:#dfe9f6;stroke:#48688f;stroke-width:1.8}
   .bq-svg .rp-axis{stroke:#b5504a;stroke-width:2.6;stroke-linecap:round}
+  .bq-svg .rp-grate-line{stroke:#48688f;stroke-width:1.5;opacity:.5;stroke-linecap:round}
   .sim-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
   .sim-controls .btn{font-size:12.5px;padding:.45rem .9rem}
   .sim-controls .btn[aria-pressed="true"]{background:linear-gradient(#7d9fce,#48688f);border-color:#35507a;color:#fff}
@@ -174,6 +174,11 @@
             <filter id="beam-glow" x="-30%" y="-120%" width="160%" height="340%">
               <feGaussianBlur stdDeviation="6"></feGaussianBlur>
             </filter>
+            <radialGradient id="pol-face" cx="0.35" cy="0.3" r="0.9">
+              <stop offset="0" stop-color="#f5f9ff"></stop>
+              <stop offset="0.55" stop-color="#dfe9f6"></stop>
+              <stop offset="1" stop-color="#b3c6e0"></stop>
+            </radialGradient>
           </defs>
           <text class="strong" x="14" y="16">偏光板を回すと、通る明るさが cos²θ で変わる</text>
           <g>
@@ -184,8 +189,18 @@
           <polygon class="vecmain-h" points="76,74 72,84 80,84"></polygon>
           <polygon class="vecmain-h" points="76,108 72,98 80,98"></polygon>
           <text class="label" x="20" y="66">入ってくる光（明るさ1、振動は縦）</text>
-          <circle class="rp-pol" cx="170" cy="91" r="36"></circle>
-          <line class="rp-axis" id="rp-axis" x1="170" y1="59" x2="170" y2="123"></line>
+          <circle cx="174" cy="95" r="36" fill="#8fa8c8"></circle>
+          <circle cx="172" cy="93" r="36" fill="#a7bcd8"></circle>
+          <circle cx="170" cy="91" r="36" fill="url(#pol-face)" stroke="#48688f" stroke-width="1.8"></circle>
+          <g id="rp-grate" transform="rotate(0 170 91)">
+            <line class="rp-grate-line" x1="143" y1="69.2" x2="143" y2="112.8"></line>
+            <line class="rp-grate-line" x1="152" y1="61.8" x2="152" y2="120.2"></line>
+            <line class="rp-grate-line" x1="161" y1="58.1" x2="161" y2="123.9"></line>
+            <line class="rp-axis" x1="170" y1="59" x2="170" y2="123"></line>
+            <line class="rp-grate-line" x1="179" y1="58.1" x2="179" y2="123.9"></line>
+            <line class="rp-grate-line" x1="188" y1="61.8" x2="188" y2="120.2"></line>
+            <line class="rp-grate-line" x1="197" y1="69.2" x2="197" y2="112.8"></line>
+          </g>
           <text class="label" x="170" y="145" text-anchor="middle">偏光板（軸が回転中）</text>
           <rect class="rp-outline" x="208" y="76" width="112" height="30" rx="6"></rect>
           <g id="rp-out" opacity="1">
@@ -422,16 +437,13 @@
   // 回転する偏光板アニメ：軸の角度θとともに、通過光の明るさが cos²θ で変わる
   var svg = document.getElementById('rp-svg');
   if (!svg) return;
-  var axis = document.getElementById('rp-axis'), out = document.getElementById('rp-out'),
+  var grate = document.getElementById('rp-grate'), out = document.getElementById('rp-out'),
       thetaTxt = document.getElementById('rp-theta'), brightTxt = document.getElementById('rp-bright');
-  var CX = 170, CY = 91, L = 32;
 
   function draw(deg) {
     var r = deg * Math.PI / 180;
-    // θ=0で軸は縦。θだけ回した軸の両端を描く
-    var dx = L * Math.sin(r), dy = L * Math.cos(r);
-    axis.setAttribute('x1', (CX - dx).toFixed(1)); axis.setAttribute('y1', (CY + dy).toFixed(1));
-    axis.setAttribute('x2', (CX + dx).toFixed(1)); axis.setAttribute('y2', (CY - dy).toFixed(1));
+    // θ=0で筋は縦。筋のグループごとθだけ回す
+    grate.setAttribute('transform', 'rotate(' + (deg % 360).toFixed(1) + ' 170 91)');
     var c2 = Math.cos(r) * Math.cos(r);
     out.setAttribute('opacity', c2.toFixed(3));
     thetaTxt.textContent = 'θ＝' + Math.round(deg % 360) + '°';
