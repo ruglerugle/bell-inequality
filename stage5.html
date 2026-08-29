@@ -41,6 +41,18 @@
   .bq-svg .curve{fill:none;stroke:#48688f;stroke-width:2.2}
   .bq-svg .pt{fill:#b5504a}
   .bq-svg .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:4 3}
+  .bq-svg .uc-axis{stroke:var(--muted);stroke-width:1.2}
+  .bq-svg .uc-circle{fill:none;stroke:var(--line);stroke-width:1.6}
+  .bq-svg .uc-radius{stroke:#7a6a2f;stroke-width:2.2}
+  .bq-svg .uc-sin{stroke:#b5504a;stroke-width:3}
+  .bq-svg .uc-cos{stroke:#48688f;stroke-width:3}
+  .bq-svg .uc-arc{fill:none;stroke:#7a6a2f;stroke-width:1.4}
+  .bq-svg .uc-dot{fill:#7a6a2f}
+  .bq-svg .uc-sintxt{fill:#b5504a;font-size:11.5px;font-weight:900}
+  .bq-svg .uc-costxt{fill:#48688f;font-size:11.5px;font-weight:900}
+  .sim-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .sim-controls .btn{font-size:12.5px;padding:.45rem .9rem}
+  .sim-controls .btn[aria-pressed="true"]{background:linear-gradient(#7d9fce,#48688f);border-color:#35507a;color:#fff}
 </style>
 </head>
 <body>
@@ -90,6 +102,39 @@
           </div>
           <div class="dialog-bubble">裁判の基準はできた。今度は原告側――量子力学に、具体的な数字を予言してもらう番だ。鍵になるのは、STAGE2で宿題にしておいた問い。<strong>斜めに振動する光が偏光板に入ると、どうなるか？</strong> 答えを出すために、まず角度の道具を2つ用意するよ。半径1の円を描いて、中心から角度θの方向に線を引き、円周との交点を見る。この点の<strong>高さ</strong>を<strong>sinθ（サイン）</strong>、<strong>横の位置</strong>を<strong>cosθ（コサイン）</strong>と呼ぶ。たとえば θ＝0° なら点は真横にあるから、高さ sin0°＝0、横 cos0°＝1。θ＝90° なら真上だから sin90°＝1、cos90°＝0。よく使う値も挙げておこう。<strong>sin30°＝1/2、cos30°＝√3/2（＝約0.87）、sin60°＝√3/2、cos60°＝1/2、sin45°＝cos45°＝1/√2（＝約0.71）</strong>だ。</div>
         </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" id="uc-svg" viewBox="0 0 340 195" width="100%" role="img" aria-label="半径1の円の図。中心から角度θの方向に引いた線と円周の交点について、その高さがsinθ、横の位置がcosθであることを示す。ボタンで角度を0°・30°・45°・60°・90°に切り替えると、点の位置とsin・cosの値が変わる">
+          <text class="strong" x="14" y="16">sinθ＝点の高さ、cosθ＝点の横の位置</text>
+          <line class="uc-axis" x1="22" y1="110" x2="184" y2="110"></line>
+          <line class="uc-axis" x1="100" y1="188" x2="100" y2="32"></line>
+          <circle class="uc-circle" cx="100" cy="110" r="70"></circle>
+          <line class="uc-cos" id="uc-cosline" x1="100" y1="110" x2="160" y2="110"></line>
+          <line class="uc-sin" id="uc-sinline" x1="160" y1="110" x2="160" y2="75"></line>
+          <line class="uc-radius" id="uc-radius" x1="100" y1="110" x2="160" y2="75"></line>
+          <path class="uc-arc" id="uc-arc" d=""></path>
+          <text class="lbA" id="uc-theta" x="130" y="104">θ</text>
+          <circle class="uc-dot" id="uc-dot" cx="160" cy="75" r="5"></circle>
+          <text class="uc-sintxt" id="uc-sinlabel" x="168" y="95">sinθ</text>
+          <text class="uc-costxt" id="uc-coslabel" x="128" y="124">cosθ</text>
+          <text class="strong" id="uc-ang" x="255" y="66" text-anchor="middle">θ＝30°</text>
+          <text class="uc-sintxt" id="uc-sinval" x="198" y="96">sin30°＝1/2＝0.50</text>
+          <text class="uc-costxt" id="uc-cosval" x="198" y="118">cos30°＝√3/2≈0.87</text>
+          <text class="label" x="190" y="146">半径が1なので、高さと横の</text>
+          <text class="label" x="190" y="160">位置がそのままsin・cosの値</text>
+        </svg>
+        <div class="sim-controls" id="uc-controls">
+          <button class="btn" data-ucangle="0" aria-pressed="false">0°</button>
+          <button class="btn" data-ucangle="30" aria-pressed="true">30°</button>
+          <button class="btn" data-ucangle="45" aria-pressed="false">45°</button>
+          <button class="btn" data-ucangle="60" aria-pressed="false">60°</button>
+          <button class="btn" data-ucangle="90" aria-pressed="false">90°</button>
+        </div>
+        <div class="diagram-caption">sinとcosの定義。半径1の円で、中心から角度θの方向へ引いた線が円周と交わる点を見る。<strong style="color:#b5504a">点の高さ＝sinθ</strong>、<strong style="color:#48688f">点の横の位置＝cosθ</strong>。ボタンで角度を切り替えて、30°の高さがちょうど半径の半分（1/2）になること、45°で高さと横がそろうこと、シーソーのように片方が増えると片方が減ることを確かめよう</div>
+      </div>
+
+      <div class="dialogue-scene">
         <div class="dialog-row right">
           <div class="dialog-character">
             <div class="dialog-avatar student"><img src="images/rabbit.webp" width="300" height="386" alt=""></div>
@@ -140,8 +185,8 @@
           <line class="tie" x1="204" y1="76" x2="60" y2="76"></line>
           <path class="axis" d="M100 160 A40 40 0 0 0 94.6 139.7" fill="none"></path>
           <text class="lbA" x="106" y="146">θ</text>
-          <text class="strong" x="244" y="100">明るさは振幅の2乗</text>
-          <text class="strong" x="244" y="118">→ cos²θ 倍</text>
+          <text class="strong" x="236" y="100">明るさは振幅の2乗</text>
+          <text class="strong" x="236" y="118">→ cos²θ 倍</text>
           <text class="label" x="252" y="140">光子1個なら</text>
           <text class="label" x="252" y="154">確率 cos²θ で○</text>
         </svg>
@@ -264,6 +309,68 @@
 
 <script src="js/progress.js"></script>
 <script>BQ.initStagePage(5);</script>
+
+<script>
+(function(){
+  // 単位円のsin/cos図解（角度切り替えボタン付き）
+  var svg = document.getElementById('uc-svg');
+  if (!svg) return;
+  var CX = 100, CY = 110, R = 70;
+  var VALS = {
+    0:  { sin: 'sin0°＝0',            cos: 'cos0°＝1' },
+    30: { sin: 'sin30°＝1/2＝0.50',   cos: 'cos30°＝√3/2≈0.87' },
+    45: { sin: 'sin45°＝1/√2≈0.71',  cos: 'cos45°＝1/√2≈0.71' },
+    60: { sin: 'sin60°＝√3/2≈0.87',  cos: 'cos60°＝1/2＝0.50' },
+    90: { sin: 'sin90°＝1',            cos: 'cos90°＝0' }
+  };
+  function el(id) { return document.getElementById(id); }
+  var radius = el('uc-radius'), sinl = el('uc-sinline'), cosl = el('uc-cosline'), dot = el('uc-dot'),
+      arc = el('uc-arc'), theta = el('uc-theta'), sinLabel = el('uc-sinlabel'), cosLabel = el('uc-coslabel'),
+      ang = el('uc-ang'), sinval = el('uc-sinval'), cosval = el('uc-cosval');
+
+  function draw(deg) {
+    var r = deg * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+    var px = CX + R * c, py = CY - R * s;
+    radius.setAttribute('x2', px.toFixed(1)); radius.setAttribute('y2', py.toFixed(1));
+    dot.setAttribute('cx', px.toFixed(1)); dot.setAttribute('cy', py.toFixed(1));
+    sinl.setAttribute('x1', px.toFixed(1)); sinl.setAttribute('x2', px.toFixed(1));
+    sinl.setAttribute('y1', CY); sinl.setAttribute('y2', py.toFixed(1));
+    sinl.setAttribute('visibility', deg === 0 ? 'hidden' : 'visible');
+    cosl.setAttribute('x2', px.toFixed(1));
+    cosl.setAttribute('visibility', deg === 90 ? 'hidden' : 'visible');
+    if (deg === 0) {
+      arc.setAttribute('d', '');
+      theta.setAttribute('visibility', 'hidden');
+    } else {
+      var ar = 24, bx = CX + ar * c, by = CY - ar * s;
+      arc.setAttribute('d', 'M ' + (CX + ar) + ' ' + CY + ' A ' + ar + ' ' + ar + ' 0 0 0 ' + bx.toFixed(1) + ' ' + by.toFixed(1));
+      theta.setAttribute('visibility', 'visible');
+      var mr = deg * Math.PI / 360;
+      theta.setAttribute('x', (CX + 34 * Math.cos(mr)).toFixed(1));
+      theta.setAttribute('y', (CY - 34 * Math.sin(mr) + 4).toFixed(1));
+    }
+    sinLabel.setAttribute('x', (px + 7).toFixed(1));
+    sinLabel.setAttribute('y', ((CY + py) / 2 + 4).toFixed(1));
+    sinLabel.setAttribute('visibility', deg === 0 ? 'hidden' : 'visible');
+    cosLabel.setAttribute('x', ((CX + px) / 2).toFixed(1));
+    cosLabel.setAttribute('y', CY + 15);
+    cosLabel.setAttribute('visibility', deg === 90 ? 'hidden' : 'visible');
+    ang.textContent = 'θ＝' + deg + '°';
+    sinval.textContent = VALS[deg].sin;
+    cosval.textContent = VALS[deg].cos;
+  }
+
+  document.querySelectorAll('[data-ucangle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('[data-ucangle]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+      draw(parseInt(btn.getAttribute('data-ucangle'), 10));
+    });
+  });
+  draw(30);
+})();
+</script>
 
 <script>
 (function(){
