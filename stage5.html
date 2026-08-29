@@ -162,7 +162,7 @@
       </div>
 
       <div class="diagram-box">
-        <svg class="bq-svg" id="rp-svg" viewBox="0 0 340 185" width="100%" role="img" aria-label="縦に振動する光が回転する偏光板に入るアニメーション。偏光板の軸が回るにつれて通過後の光の明るさがcos²θで変わり、0°と180°では元の明るさのまま、90°と270°では真っ暗になる">
+        <svg class="bq-svg" id="rp-svg" viewBox="0 0 340 318" width="100%" role="img" aria-label="縦に振動する光が回転する偏光板に入るアニメーション。偏光板の軸が回るにつれて通過後の光の明るさがcos²θで変わり、0°と180°では元の明るさのまま、90°と270°では真っ暗になる。下には横軸θ・縦軸cos²θのグラフがあり、現在の角度を示す点がカーブの上を動く">
           <defs>
             <linearGradient id="beam-grad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="#f3c47a" stop-opacity="0"></stop>
@@ -212,8 +212,26 @@
           <text class="lbA" id="rp-theta" x="208" y="130">θ＝0°</text>
           <text class="strong" id="rp-bright" x="208" y="146">明るさ cos²θ＝100%</text>
           <text class="label" x="170" y="176" text-anchor="middle">0°・180°で元の明るさ、90°・270°で真っ暗。その間はなめらかに変化する</text>
+          <text class="strong" x="45" y="204">グラフで見る：通る明るさ cos²θ</text>
+          <line class="axis" x1="45" y1="296" x2="326" y2="296"></line>
+          <line class="axis" x1="45" y1="302" x2="45" y2="210"></line>
+          <line class="grid" x1="45" y1="216" x2="320" y2="216"></line>
+          <text class="label" x="39" y="220" text-anchor="end">1</text>
+          <line class="grid" x1="45" y1="256" x2="320" y2="256"></line>
+          <text class="label" x="39" y="260" text-anchor="end">1/2</text>
+          <text class="label" x="39" y="300" text-anchor="end">0</text>
+          <line class="grid" x1="113.75" y1="296" x2="113.75" y2="216"></line>
+          <line class="grid" x1="182.5" y1="296" x2="182.5" y2="216"></line>
+          <line class="grid" x1="251.25" y1="296" x2="251.25" y2="216"></line>
+          <text class="label" x="45" y="312" text-anchor="middle">0°</text>
+          <text class="label" x="113.75" y="312" text-anchor="middle">90°</text>
+          <text class="label" x="182.5" y="312" text-anchor="middle">180°</text>
+          <text class="label" x="251.25" y="312" text-anchor="middle">270°</text>
+          <text class="label" x="320" y="312" text-anchor="middle">360°</text>
+          <path class="curve" id="rp-curve"></path>
+          <circle class="pt" id="rp-gdot" cx="45" cy="216" r="5"></circle>
         </svg>
-        <div class="diagram-caption">縦に振動する光（明るさ1）の先で、偏光板の軸をぐるりと回してみる。軸が縦（θ＝0°・180°）のときは全部通り、横（θ＝90°・270°）のときは全滅、その間は<strong>cos²θ倍</strong>の明るさでなめらかに明滅する――これが<strong>マルスの法則</strong>。そして光子1個の言葉に翻訳すると、この「明るさの割合cos²θ」が「1個が通る確率cos²θ」になる</div>
+        <div class="diagram-caption">縦に振動する光（明るさ1）の先で、偏光板をぐるりと回してみる。筋が縦（θ＝0°・180°）のときは全部通り、横（θ＝90°・270°）のときは全滅、その間は<strong>cos²θ倍</strong>の明るさでなめらかに明滅する――これが<strong>マルスの法則</strong>。下のグラフは角度θと通る明るさの関係で、<strong>赤い点がいまの角度</strong>を指しながらcos²θのカーブの上を走る。光子1個の言葉に翻訳すると、この「明るさの割合cos²θ」が「1個が通る確率cos²θ」になる</div>
       </div>
 
       <div class="dialogue-scene">
@@ -439,7 +457,22 @@
   var svg = document.getElementById('rp-svg');
   if (!svg) return;
   var grate = document.getElementById('rp-grate'), out = document.getElementById('rp-out'),
-      thetaTxt = document.getElementById('rp-theta'), brightTxt = document.getElementById('rp-bright');
+      thetaTxt = document.getElementById('rp-theta'), brightTxt = document.getElementById('rp-bright'),
+      gdot = document.getElementById('rp-gdot');
+  var GX0 = 45, GX1 = 320, GY0 = 296, GY1 = 216;
+
+  // cos²θのカーブ（0°〜360°）を一度だけ描く
+  (function () {
+    var d = '', first = true;
+    for (var a = 0; a <= 360; a += 3) {
+      var c = Math.cos(a * Math.PI / 180);
+      var x = GX0 + (GX1 - GX0) * a / 360;
+      var y = GY0 + (GY1 - GY0) * c * c;
+      d += (first ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
+      first = false;
+    }
+    document.getElementById('rp-curve').setAttribute('d', d);
+  })();
 
   function draw(deg) {
     var r = deg * Math.PI / 180;
@@ -449,6 +482,8 @@
     out.setAttribute('opacity', c2.toFixed(3));
     thetaTxt.textContent = 'θ＝' + Math.round(deg % 360) + '°';
     brightTxt.textContent = '明るさ cos²θ＝' + Math.round(c2 * 100) + '%';
+    gdot.setAttribute('cx', (GX0 + (GX1 - GX0) * (deg % 360) / 360).toFixed(1));
+    gdot.setAttribute('cy', (GY0 + (GY1 - GY0) * c2).toFixed(1));
   }
 
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
