@@ -53,6 +53,15 @@
   .bq-svg .rp-outline{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:5 4}
   .bq-svg .rp-axis{stroke:#b5504a;stroke-width:2.6;stroke-linecap:round}
   .bq-svg .rp-grate-line{stroke:#48688f;stroke-width:1.5;opacity:.5;stroke-linecap:round}
+  .bq-svg .cl-src{fill:#e8c07f;stroke:#a6742a;stroke-width:1.5}
+  .bq-svg .cl-pol{fill:#dfe9f6;stroke:#48688f;stroke-width:1.5}
+  .bq-svg .cl-dial{stroke:#b5504a;stroke-width:2.2;stroke-linecap:round}
+  .bq-svg .cl-ph{fill:#dbe6f5;stroke:#48688f;stroke-width:1.2}
+  .bq-svg .cl-fuzzy line{stroke:#48688f;stroke-width:1.2;opacity:.35}
+  .bq-svg .cl-arrow{stroke:#2f8f65;stroke-width:3}
+  .bq-svg .cl-arrow-h{fill:#2f8f65}
+  .bq-svg .cl-ok{fill:var(--ok);font-size:18px;font-weight:900}
+  .bq-svg .cl-ng{fill:var(--ng);font-size:18px;font-weight:900}
   .sim-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
   .sim-controls .btn{font-size:12.5px;padding:.45rem .9rem}
   .sim-controls .btn[aria-pressed="true"]{background:linear-gradient(#7d9fce,#48688f);border-color:#35507a;color:#fff}
@@ -280,6 +289,48 @@
           </div>
           <div class="dialog-bubble">では本題。<strong>もつれペア</strong>を量子力学で料理しよう。量子力学の教科書は、もつれペアをこう描く。<strong>測る前は、どちらの光子も決まった偏光を持っていない</strong>。説明書は白紙どころか、存在しない。そしてアリスが角度aの偏光板で測って、たとえば○（通過）だったとする。その瞬間、ペア全体の状態がガラリと変わり、<strong>ボブの光子は「角度aの偏光を持つ光子」になる</strong>。アリスが×なら、ボブの光子は「aと直角（a＋90°）の偏光を持つ光子」になる。この「瞬間に変わる」がアインシュタインの憎んだ不気味な遠隔作用だね。本当にそんな作用があるのかは、まさに裁判で審理中だから、いまは<strong>量子力学の計算ルール</strong>として受け入れて、予言だけを取り出そう。</div>
         </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" id="cl-svg" viewBox="0 0 340 190" width="100%" role="img" aria-label="もつれた光子ペアのアニメーション。中央の光源から左右に光子が飛び、左の光子は偏光の向きが決まっていないままアリスの偏光板（角度a）に届く。アリスの結果が○なら、飛行中のボブの光子の偏光がその瞬間に角度aに決まり、×ならa+90°に決まる">
+          <text class="strong" x="170" y="16" text-anchor="middle">アリスが測った瞬間、ボブの光子の偏光が決まる</text>
+          <circle class="cl-src" cx="170" cy="90" r="11"></circle>
+          <text class="label" x="170" y="118" text-anchor="middle">光源</text>
+          <rect class="cl-pol" x="56" y="60" width="12" height="60" rx="4"></rect>
+          <line class="cl-dial" x1="51" y1="108" x2="73" y2="72"></line>
+          <text class="label" x="62" y="136" text-anchor="middle">アリスの偏光板</text>
+          <text class="label" x="62" y="150" text-anchor="middle">（角度a）</text>
+          <text class="cl-ok" id="cl-res" x="28" y="96" text-anchor="middle"></text>
+          <g id="cl-photon-l">
+            <circle class="cl-ph" cx="0" cy="0" r="6"></circle>
+            <g class="cl-fuzzy">
+              <line x1="-11" y1="0" x2="11" y2="0"></line>
+              <line x1="0" y1="-11" x2="0" y2="11"></line>
+              <line x1="-8" y1="-8" x2="8" y2="8"></line>
+              <line x1="-8" y1="8" x2="8" y2="-8"></line>
+            </g>
+          </g>
+          <g id="cl-photon-r">
+            <circle class="cl-ph" cx="0" cy="0" r="6"></circle>
+            <g class="cl-fuzzy" id="cl-fuzzy-r">
+              <line x1="-11" y1="0" x2="11" y2="0"></line>
+              <line x1="0" y1="-11" x2="0" y2="11"></line>
+              <line x1="-8" y1="-8" x2="8" y2="8"></line>
+              <line x1="-8" y1="8" x2="8" y2="-8"></line>
+            </g>
+            <g id="cl-def" visibility="hidden">
+              <line class="cl-arrow" x1="0" y1="16" x2="0" y2="-16"></line>
+              <polygon class="cl-arrow-h" points="0,-20 -4,-12 4,-12"></polygon>
+              <polygon class="cl-arrow-h" points="0,20 -4,12 4,12"></polygon>
+            </g>
+          </g>
+          <text class="label" x="278" y="136" text-anchor="middle">ボブへ向かう光子</text>
+          <text class="strong" id="cl-status" x="170" y="176" text-anchor="middle">もつれペア：どちらの光子も、偏光の向きはまだ決まっていない</text>
+        </svg>
+        <div class="diagram-caption">測る前の2つの光子は、偏光の向きが決まっていない（<strong>薄い米印</strong>＝向き未定）。左の光子がアリスの偏光板（角度a）に届いて結果が出た瞬間――<strong>○なら、まだ飛行中のボブの光子の偏光が角度aに決まる（太い両矢印）。×なら a＋90°に決まる</strong>。アリスの結果はランダムなので、周回ごとに違う結末になる。この「瞬間に決まる」が本当の作用なのかは、まさに裁判の争点だ</div>
+      </div>
+
+      <div class="dialogue-scene">
         <div class="dialog-row right">
           <div class="dialog-character">
             <div class="dialog-avatar student"><img src="images/rabbitThink.webp" width="300" height="386" alt=""></div>
@@ -523,6 +574,83 @@
     first = false;
   }
   curve.setAttribute('d', d);
+})();
+</script>
+
+<script>
+(function(){
+  // 収縮アニメ：アリスの測定の瞬間に、ボブの光子の偏光が決まる
+  var svg = document.getElementById('cl-svg');
+  if (!svg) return;
+  var phL = document.getElementById('cl-photon-l'), phR = document.getElementById('cl-photon-r'),
+      fuzzyR = document.getElementById('cl-fuzzy-r'), def = document.getElementById('cl-def'),
+      res = document.getElementById('cl-res'), status = document.getElementById('cl-status');
+  var CX = 170, CY = 90, XL = 74, XR1 = 266, XR2 = 308;
+  var WAITING = 'もつれペア：どちらの光子も、偏光の向きはまだ決まっていない';
+
+  function setPos(g, x) { g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + CY + ')'); }
+
+  function setCase(ok) {
+    res.textContent = ok ? '○' : '×';
+    res.setAttribute('class', ok ? 'cl-ok' : 'cl-ng');
+    var col = ok ? '#2f8f65' : '#b5504a';
+    def.setAttribute('transform', 'rotate(' + (ok ? 30 : 120) + ')');
+    def.querySelectorAll('line').forEach(function (l) { l.setAttribute('stroke', col); });
+    def.querySelectorAll('polygon').forEach(function (p) { p.setAttribute('fill', col); });
+    def.setAttribute('visibility', 'visible');
+    fuzzyR.setAttribute('visibility', 'hidden');
+    status.textContent = ok
+      ? 'アリス：○ → その瞬間、ボブの光子は「角度aの偏光」に決まった'
+      : 'アリス：× → その瞬間、ボブの光子は「a＋90°の偏光」に決まった';
+  }
+
+  function reset() {
+    setPos(phL, CX); setPos(phR, CX);
+    phL.setAttribute('opacity', 1);
+    fuzzyR.setAttribute('visibility', 'visible');
+    def.setAttribute('visibility', 'hidden');
+    res.textContent = '';
+    status.textContent = WAITING;
+  }
+  reset();
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setPos(phL, XL); phL.setAttribute('opacity', 0);
+    setPos(phR, XR1 + 20);
+    setCase(true);
+    return;
+  }
+
+  var t = 0, mode = 'fly', xR = CX, running = false, raf = null;
+  function step() {
+    if (!running) return;
+    if (mode === 'fly') {
+      t += 1 / 80;
+      var p = Math.min(t, 1);
+      setPos(phL, CX - (CX - XL) * p);
+      xR = CX + (XR1 - CX) * p;
+      setPos(phR, xR);
+      if (p >= 1) {
+        setCase(Math.random() < 0.5);
+        phL.setAttribute('opacity', 0);
+        mode = 'continue';
+      }
+    } else if (mode === 'continue') {
+      xR += 1.4;
+      setPos(phR, xR);
+      if (xR >= XR2) { mode = 'pause'; t = 0; }
+    } else if (mode === 'pause') {
+      t += 1;
+      if (t > 90) { t = 0; mode = 'fly'; reset(); }
+    }
+    raf = requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es){
+      if (es[0].isIntersecting && !running) { running = true; step(); }
+      else if (!es[0].isIntersecting && running) { running = false; if (raf) cancelAnimationFrame(raf); }
+    }, {threshold: 0.15}).observe(svg);
+  } else { running = true; step(); }
 })();
 </script>
 </body>
