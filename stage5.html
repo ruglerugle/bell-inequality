@@ -182,30 +182,30 @@
           </defs>
           <text class="strong" x="14" y="16">偏光板を回すと、通る明るさが cos²θ で変わる</text>
           <g>
-            <rect x="20" y="80" width="112" height="22" rx="8" fill="#f3c47a" filter="url(#beam-glow)" opacity="0.85"></rect>
-            <rect x="20" y="76" width="112" height="30" rx="6" fill="url(#beam-grad)"></rect>
+            <rect x="20" y="80" width="132" height="22" rx="8" fill="#f3c47a" filter="url(#beam-glow)" opacity="0.85"></rect>
+            <rect x="20" y="76" width="132" height="30" rx="6" fill="url(#beam-grad)"></rect>
           </g>
           <line class="vecmain" x1="76" y1="102" x2="76" y2="80"></line>
           <polygon class="vecmain-h" points="76,74 72,84 80,84"></polygon>
           <polygon class="vecmain-h" points="76,108 72,98 80,98"></polygon>
           <text class="label" x="20" y="66">入ってくる光（明るさ1、振動は縦）</text>
-          <circle cx="174" cy="95" r="36" fill="#8fa8c8"></circle>
-          <circle cx="172" cy="93" r="36" fill="#a7bcd8"></circle>
-          <circle cx="170" cy="91" r="36" fill="url(#pol-face)" stroke="#48688f" stroke-width="1.8"></circle>
-          <g id="rp-grate" transform="rotate(0 170 91)">
-            <line class="rp-grate-line" x1="143" y1="69.2" x2="143" y2="112.8"></line>
-            <line class="rp-grate-line" x1="152" y1="61.8" x2="152" y2="120.2"></line>
-            <line class="rp-grate-line" x1="161" y1="58.1" x2="161" y2="123.9"></line>
-            <line class="rp-axis" x1="170" y1="59" x2="170" y2="123"></line>
-            <line class="rp-grate-line" x1="179" y1="58.1" x2="179" y2="123.9"></line>
-            <line class="rp-grate-line" x1="188" y1="61.8" x2="188" y2="120.2"></line>
-            <line class="rp-grate-line" x1="197" y1="69.2" x2="197" y2="112.8"></line>
+          <ellipse cx="162" cy="91" rx="13" ry="42" fill="#8fa8c8" stroke="#48688f" stroke-width="1.2"></ellipse>
+          <rect x="162" y="49" width="8" height="84" fill="#a7bcd8"></rect>
+          <ellipse cx="170" cy="91" rx="13" ry="42" fill="url(#pol-face)" stroke="#48688f" stroke-width="1.8"></ellipse>
+          <g id="rp-grate" transform="translate(170 91) scale(0.31 1) rotate(0) translate(-170 -91)">
+            <line class="rp-grate-line" x1="136" y1="72" x2="136" y2="110"></line>
+            <line class="rp-grate-line" x1="146" y1="61" x2="146" y2="121"></line>
+            <line class="rp-grate-line" x1="158" y1="55" x2="158" y2="127"></line>
+            <line class="rp-axis" x1="170" y1="53" x2="170" y2="129"></line>
+            <line class="rp-grate-line" x1="182" y1="55" x2="182" y2="127"></line>
+            <line class="rp-grate-line" x1="194" y1="61" x2="194" y2="121"></line>
+            <line class="rp-grate-line" x1="204" y1="72" x2="204" y2="110"></line>
           </g>
-          <text class="label" x="170" y="145" text-anchor="middle">偏光板（軸が回転中）</text>
-          <rect class="rp-outline" x="208" y="76" width="112" height="30" rx="6"></rect>
+          <text class="label" x="170" y="150" text-anchor="middle">偏光板（筋の向きが回転中）</text>
+          <rect class="rp-outline" x="192" y="76" width="128" height="30" rx="6"></rect>
           <g id="rp-out" opacity="1">
-            <rect x="208" y="80" width="112" height="22" rx="8" fill="#f3c47a" filter="url(#beam-glow)" opacity="0.85"></rect>
-            <rect x="208" y="76" width="112" height="30" rx="6" fill="url(#beam-grad)"></rect>
+            <rect x="192" y="80" width="128" height="22" rx="8" fill="#f3c47a" filter="url(#beam-glow)" opacity="0.85"></rect>
+            <rect x="192" y="76" width="128" height="30" rx="6" fill="url(#beam-grad)"></rect>
           </g>
           <text class="label" x="208" y="70">通った光</text>
           <text class="lbA" id="rp-theta" x="208" y="130">θ＝0°</text>
@@ -442,8 +442,8 @@
 
   function draw(deg) {
     var r = deg * Math.PI / 180;
-    // θ=0で筋は縦。筋のグループごとθだけ回す
-    grate.setAttribute('transform', 'rotate(' + (deg % 360).toFixed(1) + ' 170 91)');
+    // θ=0で筋は縦。円盤面内でθだけ回し、斜めから見た分だけ横方向を圧縮して楕円に投影する
+    grate.setAttribute('transform', 'translate(170 91) scale(0.31 1) rotate(' + (deg % 360).toFixed(1) + ') translate(-170 -91)');
     var c2 = Math.cos(r) * Math.cos(r);
     out.setAttribute('opacity', c2.toFixed(3));
     thetaTxt.textContent = 'θ＝' + Math.round(deg % 360) + '°';
