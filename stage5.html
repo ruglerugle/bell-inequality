@@ -67,6 +67,13 @@
   .bq-svg .cs-plain{fill:var(--ink);font-size:11px;font-weight:800}
   .bq-svg .arrow2{stroke:var(--muted);stroke-width:1.5}
   .bq-svg .fork{stroke:var(--muted);stroke-width:1.3}
+  .bq-svg .barL{fill:#b5504a}
+  .bq-svg .barR{fill:#48688f}
+  .bq-svg .verdict-ng{fill:var(--ng);font-size:15px;font-weight:900}
+  .bq-svg .verdict-ok{fill:var(--ok);font-size:15px;font-weight:900}
+  .sim-controls label{font-size:13px;font-weight:800;color:var(--ink)}
+  .sim-controls input[type="range"]{width:min(60%,260px);accent-color:#48688f}
+  .sim-value{font-size:13px;font-weight:900;color:var(--gold-dark);min-width:4.5em;display:inline-block}
   .sim-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
   .sim-controls .btn{font-size:12.5px;padding:.45rem .9rem}
   .sim-controls .btn[aria-pressed="true"]{background:linear-gradient(#7d9fce,#48688f);border-color:#35507a;color:#fff}
@@ -80,8 +87,8 @@
       <div class="brand-sub">STAGE 5 ― 量子力学の予言 ―</div>
     </div>
     <div class="head-progress-wrap">
-      <div class="head-progress-label" id="progress-label">クリア 0 / 8</div>
-      <div class="head-progress" role="progressbar" aria-label="クリア済みステージ数" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><div class="head-progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="head-progress-label" id="progress-label">クリア 0 / 7</div>
+      <div class="head-progress" role="progressbar" aria-label="クリア済みステージ数" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><div class="head-progress-fill" id="progress-fill" style="width:0%"></div></div>
     </div>
     <div class="header-actions">
       <button class="head-reset" id="btn-reset-all">🔄 最初から</button>
@@ -107,7 +114,7 @@
 
       <div class="mission-box">
         <div class="mission-label">🎯 ミッション</div>
-        <div class="mission-text">量子力学が予言する食い違い率を計算しよう。マルスの法則「光子は確率cos²θで偏光板を通る」を矢印の分解から理解し、もつれペアの食い違い率 D＝sin²(角度差)、特に D(30°差)＝1/4、D(60°差)＝3/4 を導ければ合格。</div>
+        <div class="mission-text">量子力学が予言する食い違い率を計算しよう。マルスの法則「光子は確率cos²θで偏光板を通る」を矢印の分解から理解し、もつれペアの食い違い率 D＝sin²(角度差) を導く。さらにベルの不等式に代入して、3/4 ≤ 1/2 という衝突を自分の手で確かめられれば合格。</div>
         <span class="mission-status" id="mission-status">未達成</span>
       </div>
 
@@ -456,12 +463,60 @@
           </div>
           <div class="dialog-bubble">並べた瞬間に、気づいてしまいました。ベルの不等式は D(A,C) ≤ D(A,B)＋D(B,C)。いま出た数字を入れると、左辺は3/4、右辺は1/4＋1/4＝1/2。<strong>3/4 ≤ 1/2――成り立ちません。仮に量子力学の予言が正しければ、実際の光子はベルの不等式を破ることになります</strong>。あの「成り立つに決まっている」が、現実の実験で破られうる。</div>
         </div>
+      </div>
+
+      <div class="formula-box">
+        <span class="step">【衝突の計算】</span>
+        <span class="step">ベルの不等式：<span class="nw">D(A,C) ≤ D(A,B) ＋ D(B,C)</span>　（A＝0°、B＝30°、C＝60°）</span>
+        <span class="step">量子力学の予言を代入：<span class="nw">sin²60° ≤ sin²30° ＋ sin²30°</span></span>
+        <span class="step">値を入れると：<span class="nw">3/4 ≤ 1/4 ＋ 1/4 ＝ 1/2</span>　→　<strong>不成立！</strong>　量子力学の予言はベルの不等式と両立しない</span>
+      </div>
+
+      <div class="dialogue-scene">
         <div class="dialog-row">
           <div class="dialog-character">
             <div class="dialog-avatar mentor"><img src="images/catThink.webp" width="300" height="386" alt=""></div>
             <div class="dialog-name mentor">ねこ博士</div>
           </div>
-          <div class="dialog-bubble">きみはいま、1964年のベルが見たのと同じ景色を見ているんだよ。300年の物理学の常識と量子力学の予言が、たった3つの分数の上で正面衝突している。次のステージでは、この衝突を法廷の形式できちんと確定させて、その意味を測ろう。</div>
+          <div class="dialog-bubble">きみはいま、1964年のベルが見たのと同じ景色を見ているんだよ。300年の物理学の常識と量子力学の予言が、たった3つの分数の上で正面衝突している。意味を正確に言っておこう。ベルの不等式は「説明書があるなら<strong>絶対に</strong>成り立つ」ものだった。つまり、量子力学の予言する3つの食い違い率 (3/4, 1/4, 1/4) を同時に出せる説明書のセットは、<strong>この世に存在しない</strong>。しかもこの衝突は、30°と60°という角度の偶然でもないんだ。A＝0°、B＝θ、C＝2θと一般化すると、不等式は sin²(2θ) ≤ 2sin²θ となるべきところだ。ところがθが小さいとき、sinθはほぼθに比例するから、sin²(2θ)は約(2θ)²＝4θ²、右辺は約2θ²。<strong>θが45°より小さいかぎり、左辺が勝ち続ける</strong>。</div>
+        </div>
+      </div>
+
+      <div class="diagram-box">
+        <svg class="bq-svg" id="sim-svg" viewBox="0 0 340 150" width="100%" role="img" aria-label="角度θを変えながら、ベルの不等式の左辺sin²(2θ)と右辺2sin²θを棒グラフで比べるシミュレータ。θが45°未満では左辺が右辺を上回り、不等式が破れる">
+          <text class="strong" x="170" y="16" text-anchor="middle">破れシミュレータ（A＝0°, B＝θ, C＝2θ）</text>
+          <line class="axis" x1="60" y1="120" x2="326" y2="120"></line>
+          <line class="axis" x1="60" y1="130" x2="60" y2="28"></line>
+          <text class="label" x="54" y="36" text-anchor="end">1</text>
+          <rect class="barL" id="bar-l" x="90" y="120" width="60" height="0"></rect>
+          <text class="label" x="120" y="134" text-anchor="middle">左辺 sin²(2θ)</text>
+          <text class="lbA" id="val-l" x="120" y="112" text-anchor="middle"></text>
+          <rect class="barR" id="bar-r" x="210" y="120" width="60" height="0"></rect>
+          <text class="label" x="240" y="134" text-anchor="middle">右辺 2sin²θ</text>
+          <text class="lbA" id="val-r" x="240" y="112" text-anchor="middle"></text>
+          <text class="verdict-ng" id="verdict" x="170" y="146" text-anchor="middle"></text>
+        </svg>
+        <div class="sim-controls">
+          <label for="theta-slider">θ ＝ <span class="sim-value" id="theta-label">30°</span></label>
+          <input type="range" id="theta-slider" min="5" max="60" value="30" step="1" aria-label="角度θを選ぶ">
+        </div>
+        <div class="diagram-caption">スライダーでθを動かすと、左辺（2θぶん一気にずらしたときの食い違い）と右辺（θずつ2回の食い違いの合計）が変わる。<strong>θが45°未満のあいだ、左辺は常に右辺を上回る</strong>＝不等式は破れ続ける。θ＝45°でちょうど引き分け、それより大きいと不等式はおとなしく成り立つ。破れは特定の角度のマジックではなく、sin²カーブの「出だしなだらか、あとから加速」という形そのものに刻まれている</div>
+      </div>
+
+      <div class="dialogue-scene">
+        <div class="dialog-row right">
+          <div class="dialog-character">
+            <div class="dialog-avatar student"><img src="images/rabbitThink.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name student">うさ美</div>
+          </div>
+          <div class="dialog-bubble">いろいろなθで計算してみて、破れがカーブの形そのものに刻まれていることは納得しました。それでも冷静に言えば、今日示せたのは<strong>「予言同士の衝突」</strong>までです。本当に自然がどちらに従うかは、実際の光子で測らないと分かりません。ただ――DやD(A,B)は<strong>実際に測れる数</strong>でしたよね。だったらこの対立は、解釈や哲学ではなく、<strong>実験データそのもの</strong>で白黒つけられます。データが不等式の内側に収まれば局所実在論の勝ち、はみ出せば負け。</div>
+        </div>
+        <div class="dialog-row">
+          <div class="dialog-character">
+            <div class="dialog-avatar mentor"><img src="images/cat.webp" width="300" height="386" alt=""></div>
+            <div class="dialog-name mentor">ねこ博士</div>
+          </div>
+          <div class="dialog-bubble">それこそが、ベルの不等式の最大の美点だよ。量子力学の計算が正しいかどうかさえ、判決には関係ない。装置を組んで、数を数えれば、自然自身が答えてくれる。次のステージでは、この実験に人生を賭けた物理学者たちの50年を追いかけよう。舞台は数式の世界から、レーザーと偏光板の並ぶ実験室へ移るよ。</div>
         </div>
       </div>
 
@@ -470,6 +525,7 @@
         <span class="step">マルスの法則（光子版）：軸から角度θ傾いた偏光の光子は、確率 <span class="nw">cos²θ</span> で通り、確率 <span class="nw">sin²θ</span> で吸収される</span>
         <span class="step">もつれペアの食い違い率（量子力学の予言）：<span class="nw">D＝sin²(角度差Δ)</span></span>
         <span class="step multi"><span class="item">Δ＝0°：D＝0（完全相関）</span>　<span class="item">Δ＝30°：D＝1/4</span>　<span class="item">Δ＝60°：D＝3/4</span>　<span class="item">Δ＝90°：D＝1</span></span>
+        <span class="step">ベルの不等式に代入すると <span class="nw">3/4 ≤ 1/2</span> で不成立。量子力学の予言はベルの不等式と両立しない（決着は実験データに委ねられる）</span>
       </div>
 
       <div class="quiz-head">確認クイズ</div>
@@ -501,6 +557,16 @@
           <button class="choice-btn">1/4</button>
         </div>
         <div class="quiz-explain" hidden>正解！ sin60°＝√3/2 だから、2乗して (√3/2)²＝3/4。30°のときの1/4に対して、角度が2倍になると食い違いは3倍になる。この「2倍を超える加速」こそが、ベルの不等式と衝突する火種だ。</div>
+      </div>
+
+      <div class="quiz-card" data-quiz>
+        <p class="quiz-q">Q4. ベルの不等式に量子力学の予言（A=0°, B=30°, C=60°）を代入した結果はどれ？</p>
+        <div class="choice-list">
+          <button class="choice-btn">左辺3/4、右辺1/2となり、不等式は成り立たない</button>
+          <button class="choice-btn">左辺1/2、右辺3/4となり、不等式は成り立つ</button>
+          <button class="choice-btn">左辺と右辺がともに1/2で、ちょうど等しい</button>
+        </div>
+        <div class="quiz-explain" hidden>正解！ 左辺D(A,C)＝sin²60°＝3/4、右辺D(A,B)＋D(B,C)＝1/4＋1/4＝1/2。局所実在論なら絶対に成り立つはずの不等式と、量子力学の予言は両立しない。どちらが自然の姿かは、次のステージの実験が決める。</div>
       </div>
 
       <div class="stage-nav">
@@ -650,6 +716,41 @@
     first = false;
   }
   curve.setAttribute('d', d);
+})();
+</script>
+
+<script>
+(function(){
+  // 破れシミュレータ：左辺sin²(2θ)と右辺2sin²θを棒グラフで比較
+  var slider = document.getElementById('theta-slider');
+  if (!slider) return;
+  var barL = document.getElementById('bar-l'), barR = document.getElementById('bar-r'),
+      valL = document.getElementById('val-l'), valR = document.getElementById('val-r'),
+      verdict = document.getElementById('verdict'), thetaLabel = document.getElementById('theta-label');
+  var BASE = 120, MAXH = 88;
+
+  function update() {
+    var deg = parseInt(slider.value, 10);
+    var rad = deg * Math.PI / 180;
+    var lhs = Math.pow(Math.sin(2 * rad), 2);
+    var rhsTrue = 2 * Math.pow(Math.sin(rad), 2);
+    var rhs = Math.min(rhsTrue, 1.0); // 表示上のクリップ（θ>45°で2sin²θは1を超えうる）
+    var hL = MAXH * lhs, hR = MAXH * rhs;
+    barL.setAttribute('y', (BASE - hL).toFixed(1)); barL.setAttribute('height', hL.toFixed(1));
+    barR.setAttribute('y', (BASE - hR).toFixed(1)); barR.setAttribute('height', hR.toFixed(1));
+    valL.textContent = lhs.toFixed(2);
+    valR.textContent = rhsTrue.toFixed(2);
+    thetaLabel.textContent = deg + '°';
+    if (lhs > rhsTrue + 1e-9) {
+      verdict.textContent = '⚡ 不等式が破れている！（左辺 > 右辺）';
+      verdict.setAttribute('class', 'verdict-ng');
+    } else {
+      verdict.textContent = '不等式は成立中（左辺 ≤ 右辺）';
+      verdict.setAttribute('class', 'verdict-ok');
+    }
+  }
+  slider.addEventListener('input', update);
+  update();
 })();
 </script>
 
