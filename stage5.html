@@ -50,9 +50,10 @@
   .bq-svg .uc-dot{fill:#7a6a2f}
   .bq-svg .uc-sintxt{fill:#b5504a;font-size:11.5px;font-weight:900}
   .bq-svg .uc-costxt{fill:#48688f;font-size:11.5px;font-weight:900}
-  .bq-svg .filter{fill:#dfe9f6;stroke:#48688f;stroke-width:1.5}
-  .bq-svg .photon{fill:#48688f}
-  .bq-svg .resNG{fill:var(--ng);font-size:14px;font-weight:900}
+  .bq-svg .rp-beam{fill:#e8c07f}
+  .bq-svg .rp-outline{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:5 4}
+  .bq-svg .rp-pol{fill:#dfe9f6;stroke:#48688f;stroke-width:1.8}
+  .bq-svg .rp-axis{stroke:#b5504a;stroke-width:2.6;stroke-linecap:round}
   .sim-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
   .sim-controls .btn{font-size:12.5px;padding:.45rem .9rem}
   .sim-controls .btn[aria-pressed="true"]{background:linear-gradient(#7d9fce,#48688f);border-color:#35507a;color:#fff}
@@ -162,26 +163,24 @@
       </div>
 
       <div class="diagram-box">
-        <svg class="bq-svg" id="ph2-svg" viewBox="0 0 340 195" width="100%" role="img" aria-label="θ＝30°の例で、波の見方と粒の見方を比べる図。上段では偏光板を通ると振幅がcos30°倍になり明るさが3/4倍になる。下段では光子が1個ずつ偏光板に飛び込み、確率3/4で丸ごと通り、確率1/4で丸ごと吸収される。通過数の集計が3/4に近づいていく">
-          <text class="strong" x="14" y="16">同じ現象の2つの見方（θ＝30°、cos²30°＝3/4 の例）</text>
-          <text class="lbA" x="14" y="38">波の見方：明るさが 3/4 倍になる</text>
-          <line class="axis" x1="20" y1="72" x2="320" y2="72"></line>
-          <rect class="filter" x="164" y="46" width="12" height="52" rx="4"></rect>
-          <line class="vecmain" x1="70" y1="72" x2="70" y2="32"></line>
-          <polygon class="vecmain-h" points="70,26 66,36 74,36"></polygon>
-          <text class="label" x="80" y="40">振幅 1（明るさ 1）</text>
-          <line class="vecmain" x1="240" y1="72" x2="240" y2="37"></line>
-          <polygon class="vecmain-h" points="240,31 236,41 244,41"></polygon>
-          <text class="label" x="250" y="40">振幅 cos30°＝0.87</text>
-          <text class="label" x="250" y="54">明るさ 0.87²＝3/4</text>
-          <text class="lbA" x="14" y="112">粒の見方：1個1個が、確率 3/4 で丸ごと通る</text>
-          <line class="axis" x1="20" y1="145" x2="320" y2="145"></line>
-          <rect class="filter" x="164" y="123" width="12" height="44" rx="4"></rect>
-          <circle class="photon" id="ph2-dot" cx="24" cy="145" r="5"></circle>
-          <text class="resNG" id="ph2-mark" x="170" y="120" text-anchor="middle"></text>
-          <text class="label" id="ph2-count" x="170" y="188" text-anchor="middle">通過 0 / 0 発</text>
+        <svg class="bq-svg" id="rp-svg" viewBox="0 0 340 185" width="100%" role="img" aria-label="縦に振動する光が回転する偏光板に入るアニメーション。偏光板の軸が回るにつれて通過後の光の明るさがcos²θで変わり、0°と180°では元の明るさのまま、90°と270°では真っ暗になる">
+          <text class="strong" x="14" y="16">偏光板を回すと、通る明るさが cos²θ で変わる</text>
+          <rect class="rp-beam" x="20" y="78" width="112" height="26" rx="4"></rect>
+          <line class="vecmain" x1="76" y1="102" x2="76" y2="80"></line>
+          <polygon class="vecmain-h" points="76,74 72,84 80,84"></polygon>
+          <polygon class="vecmain-h" points="76,108 72,98 80,98"></polygon>
+          <text class="label" x="20" y="70">入ってくる光（明るさ1、振動は縦）</text>
+          <circle class="rp-pol" cx="170" cy="91" r="36"></circle>
+          <line class="rp-axis" id="rp-axis" x1="170" y1="59" x2="170" y2="123"></line>
+          <text class="label" x="170" y="145" text-anchor="middle">偏光板（軸が回転中）</text>
+          <rect class="rp-outline" x="208" y="78" width="112" height="26" rx="4"></rect>
+          <rect class="rp-beam" id="rp-out" x="208" y="78" width="112" height="26" rx="4" opacity="1"></rect>
+          <text class="label" x="208" y="70">通った光</text>
+          <text class="lbA" id="rp-theta" x="208" y="130">θ＝0°</text>
+          <text class="strong" id="rp-bright" x="208" y="146">明るさ cos²θ＝100%</text>
+          <text class="label" x="170" y="176" text-anchor="middle">0°・180°で元の明るさ、90°・270°で真っ暗。その間はなめらかに変化する</text>
         </svg>
-        <div class="diagram-caption">上段が<strong>波の見方</strong>：偏光板を通ると振幅がcos30°倍になり、明るさ（＝振幅の2乗）は3/4倍に減る。下段が<strong>粒の見方</strong>：光子は割れないので、明るさが3/4になる方法は<strong>4個に3個の割合で丸ごと通る</strong>しかない。1個1個の運命はサイコロで、集計だけが3/4に近づいていく――波の「明るさの割合」が、粒の「確率」に化ける瞬間だ</div>
+        <div class="diagram-caption">縦に振動する光（明るさ1）の先で、偏光板の軸をぐるりと回してみる。軸が縦（θ＝0°・180°）のときは全部通り、横（θ＝90°・270°）のときは全滅、その間は<strong>cos²θ倍</strong>の明るさでなめらかに明滅する――これが<strong>マルスの法則</strong>。そして光子1個の言葉に翻訳すると、この「明るさの割合cos²θ」が「1個が通る確率cos²θ」になる</div>
       </div>
 
       <div class="dialogue-scene">
@@ -403,66 +402,44 @@
 
 <script>
 (function(){
-  // 粒の見方アニメ：光子が1個ずつ偏光板に飛び込み、確率3/4で通過・1/4で吸収される
-  var svg = document.getElementById('ph2-svg');
+  // 回転する偏光板アニメ：軸の角度θとともに、通過光の明るさが cos²θ で変わる
+  var svg = document.getElementById('rp-svg');
   if (!svg) return;
-  var dot = document.getElementById('ph2-dot'), mark = document.getElementById('ph2-mark'),
-      count = document.getElementById('ph2-count');
-  var X0 = 24, XP = 170, X1 = 314, P = 0.75;
-  var passed = 0, total = 0;
+  var axis = document.getElementById('rp-axis'), out = document.getElementById('rp-out'),
+      thetaTxt = document.getElementById('rp-theta'), brightTxt = document.getElementById('rp-bright');
+  var CX = 170, CY = 91, L = 32;
 
-  function setCount() {
-    var pct = total > 0 ? '（' + Math.round(100 * passed / total) + '%）' : '';
-    count.textContent = '通過 ' + passed + ' / ' + total + ' 発' + pct + '　→ 3/4＝75%に近づく';
+  function draw(deg) {
+    var r = deg * Math.PI / 180;
+    // θ=0で軸は縦。θだけ回した軸の両端を描く
+    var dx = L * Math.sin(r), dy = L * Math.cos(r);
+    axis.setAttribute('x1', (CX - dx).toFixed(1)); axis.setAttribute('y1', (CY + dy).toFixed(1));
+    axis.setAttribute('x2', (CX + dx).toFixed(1)); axis.setAttribute('y2', (CY - dy).toFixed(1));
+    var c2 = Math.cos(r) * Math.cos(r);
+    out.setAttribute('opacity', c2.toFixed(3));
+    thetaTxt.textContent = 'θ＝' + Math.round(deg % 360) + '°';
+    brightTxt.textContent = '明るさ cos²θ＝' + Math.round(c2 * 100) + '%';
   }
 
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    dot.setAttribute('cx', 250); dot.setAttribute('fill', 'var(--ok)');
-    passed = 6; total = 8; setCount();
+    draw(30);
     return;
   }
 
-  var x = X0, mode = 'approach', wait = 0, running = false, raf = null;
-  function step() {
+  var deg = 0, running = false, raf = null;
+  function loop() {
     if (!running) return;
-    if (mode === 'approach') {
-      x += 3.2;
-      if (x >= XP - 8) {
-        total++;
-        if (Math.random() < P) {
-          mode = 'pass'; passed++;
-          dot.setAttribute('fill', 'var(--ok)');
-        } else {
-          mode = 'absorb'; wait = 26;
-          dot.setAttribute('opacity', 0);
-          mark.textContent = '× 吸収';
-        }
-        setCount();
-      }
-    } else if (mode === 'pass') {
-      x += 3.6;
-      if (x >= X1) { mode = 'reset'; wait = 10; }
-    } else if (mode === 'absorb') {
-      wait--;
-      if (wait <= 0) { mode = 'reset'; wait = 0; mark.textContent = ''; }
-    } else if (mode === 'reset') {
-      if (wait > 0) { wait--; }
-      else {
-        x = X0;
-        dot.setAttribute('opacity', 1);
-        dot.setAttribute('fill', '#48688f');
-        mode = 'approach';
-      }
-    }
-    dot.setAttribute('cx', Math.min(x, X1).toFixed(1));
-    raf = requestAnimationFrame(step);
+    deg += 0.5;
+    if (deg >= 360) deg -= 360;
+    draw(deg);
+    raf = requestAnimationFrame(loop);
   }
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function(es){
-      if (es[0].isIntersecting && !running) { running = true; step(); }
+      if (es[0].isIntersecting && !running) { running = true; loop(); }
       else if (!es[0].isIntersecting && running) { running = false; if (raf) cancelAnimationFrame(raf); }
     }, {threshold: 0.15}).observe(svg);
-  } else { running = true; step(); }
+  } else { running = true; loop(); }
 })();
 </script>
 
