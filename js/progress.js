@@ -17,21 +17,19 @@
   var ANSWERS = {
     1: [1, 0, 2],
     2: [2, 1, 0],
-    3: [0, 2, 1],
-    4: [1, 2, 0],
-    5: [2, 0, 1, 0],
-    6: [1, 0, 2],
-    7: [2, 1, 0]
+    3: [0, 2, 0],
+    4: [2, 0, 1, 0],
+    5: [1, 0, 2],
+    6: [2, 1, 0]
   };
 
   var STAGES = [
     { n: 1, file: "stage1.html", title: "月は見ていなくても存在するか", sub: "アインシュタインの疑問" },
     { n: 2, file: "stage2.html", title: "もつれた光子のふしぎな一致", sub: "偏光と完全相関" },
-    { n: 3, file: "stage3.html", title: "「説明書」仮説", sub: "隠れた変数と局所実在論" },
-    { n: 4, file: "stage4.html", title: "数え上げで不等式を導く", sub: "ベルの不等式誕生" },
-    { n: 5, file: "stage5.html", title: "量子力学の予言", sub: "sin²(角度差)と不等式の衝突" },
-    { n: 6, file: "stage6.html", title: "実験による決着", sub: "アスペからノーベル賞まで" },
-    { n: 7, file: "stage7.html", title: "月への答え", sub: "局所実在論のその後" }
+    { n: 3, file: "stage3.html", title: "数え上げで不等式を導く", sub: "説明書モデルからベルの不等式へ" },
+    { n: 4, file: "stage4.html", title: "量子力学の予言", sub: "食い違いは sin²(角度差)" },
+    { n: 5, file: "stage5.html", title: "実験による決着", sub: "アスペからノーベル賞まで" },
+    { n: 6, file: "stage6.html", title: "月への答え", sub: "局所実在論のその後" }
   ];
 
   function getCleared() {
