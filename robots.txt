@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ruglerugle.github.io/bell-inequality/sitemap.xml
+Sitemap: https://quantum-mechanics.habatakijuku.com/bell-inequality/sitemap.xml
